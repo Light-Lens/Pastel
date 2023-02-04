@@ -8,33 +8,47 @@
 
 using namespace std;
 
-// Function that will run at first.
+void run(const string& current_line, int current_line_no)
+{
+    // code here.
+}
+
 int main(int argc, char const *argv[])
 {
-    vector<string> cmd_line_args = manager::cmd_line_args_parser(argc, argv); // Get all command line args
-    fstream file; // Create an empty file stream.
+    vector<string> cmd_line_args = manager::cmd_line_args_parser(argc, argv);
+    fstream file;
 
     string current_line;
+    int current_line_no = 0;
 
-    if (!strings::endswith(cmd_line_args[0], ".pastel"))
-        errors::file_format(cmd_line_args[0]);
-
-    else
+    if (cmd_line_args.empty())
     {
-        // Check if file opens properly.
+        console::set_console_color(9);
+        cout << "Pastel 2023 [Version 0.1]";
+        console::reset_console_color();
+
+        cout << "\n> ";
+        while (getline(cin, current_line))
+        {
+            run(current_line, current_line_no++);
+            cout << "\n> ";
+        }
+    }
+
+    else if (strings::endswith(cmd_line_args[0], ".pastel"))
+    {
         file.open(cmd_line_args[0]);
         if (!file)
             errors::open_file(cmd_line_args[0]);
 
-        else
-        {
-            // Run until the file is reached it's end
-            while (getline(file, current_line))
-                cout << current_line << endl;
-        }
+        while (getline(file, current_line))
+            run(current_line, current_line_no++);
 
-        file.close(); // Close the file.
+        file.close();
     }
+
+    else
+        errors::file_format(cmd_line_args[0]);
 
     return 0;
 }
