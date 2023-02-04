@@ -8,6 +8,7 @@
 
 using namespace std;
 
+// Function that will run at first.
 int main(int argc, char const *argv[])
 {
     vector<string> cmd_line_args = manager::cmd_line_args_parser(argc, argv); // Get all command line args
