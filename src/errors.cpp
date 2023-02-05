@@ -1,31 +1,33 @@
 #include <iostream>
 
 #include "errors.h"
-#include "manager.h"
+#include "collections.h"
 
 using namespace std;
 
 namespace errors
 {
-    // Unrecognized file format.
-    void file_format(std::string filename)
+    void errors(const string& details)
     {
+        WORD color = console::get_console_color();
         console::set_console_color(12);
-        cout << "Error!" << endl;
-        cout << filename << ": File not recognized: File format not recognized" << endl;
 
-        console::reset_console_color();
-        exit(0);
+        cout << details << endl;
+
+        console::set_console_color(color);
     }
 
     // Cannot open file.
-    void open_file(string filename)
+    void open_file(const string& filename)
     {
-        console::set_console_color(12);
-        cout << "Error!" << endl;
-        cout << filename << ": No such file or directory." << endl;
+        errors(filename + ": No such file or directory.");
+        exit(0);
+    }
 
-        console::reset_console_color();
+    // Unrecognized file format.
+    void file_format(const string& filename)
+    {
+        errors(filename + ": File format not recognized");
         exit(0);
     }
 }

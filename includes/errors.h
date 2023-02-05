@@ -3,6 +3,7 @@
 
 namespace errors
 {
-    void file_format(std::string filename);
-    void open_file(std::string filename);
+    void errors(const std::string& details);
+    void open_file(const std::string& filename);
+    void file_format(const std::string& filename);
 }

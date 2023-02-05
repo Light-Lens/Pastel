@@ -3,14 +3,14 @@
 #include <vector>
 
 #include "errors.h"
+#include "obsidian.h"
 #include "collections.h"
-#include "manager.h"
 
 using namespace std;
 
 void run(const string& current_line, int current_line_no)
 {
-    // code here.
+    Lexer lx(current_line, current_line_no);
 }
 
 int main(int argc, char const *argv[])
