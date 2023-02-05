@@ -10,7 +10,7 @@ using namespace std;
 
 void run(const string& current_line, int current_line_no)
 {
-    Lexer lx(current_line, current_line_no);
+    lexer lx(current_line, current_line_no);
 }
 
 int main(int argc, char const *argv[])
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    else if (strings::endswith(cmd_line_args[0], ".pastel"))
+    else if (strings::endswith(cmd_line_args[0], ".co") || strings::endswith(cmd_line_args[0], ".pastel"))
     {
         file.open(cmd_line_args[0]);
         if (!file)
