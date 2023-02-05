@@ -9,11 +9,29 @@ public:
 private:
     void Tokenizer();
     bool isKeyword(const std::string &str);
+    bool isInt(const std::string& str);
 
 private:
-    struct keyword;
+    struct Token;
 
     static int line_no;
     static std::string original_line;
-    static keyword Keywords[];
+    static std::string keywords[];
+
+    enum TokenType
+    {
+        INT,
+        FLOAT,
+        DOT,
+        STRING,
+        IDENTIFIER,
+        KEYWORD,
+        PLUS,
+        MINUS,
+        MUL,
+        DIV,
+        LPAREN,
+        RPAREN,
+        END
+    };
 };
