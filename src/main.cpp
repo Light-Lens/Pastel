@@ -3,7 +3,7 @@
 #include <vector>
 
 #include "errors.h"
-#include "strings.h"
+#include "collections.h"
 #include "manager.h"
 
 using namespace std;
