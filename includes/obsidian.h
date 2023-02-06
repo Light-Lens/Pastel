@@ -10,6 +10,7 @@ private:
     void Tokenizer();
     bool isKeyword(const std::string &str);
     bool isInt(const std::string& str);
+    bool isFloat(const std::string& str);
 
 private:
     struct Token;
@@ -24,6 +25,7 @@ private:
         FLOAT,
         DOT,
         STRING,
+        SEMICOLON,
         IDENTIFIER,
         KEYWORD,
         PLUS,

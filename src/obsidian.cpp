@@ -18,7 +18,9 @@ struct lexer::Token
 };
 
 string lexer::keywords[] = {
-    "shout"
+    "shout",
+    "input",
+    "include"
 };
 
 lexer::lexer(const string& current_line, int current_line_no)
@@ -37,8 +39,12 @@ void lexer::Tokenizer()
     for (int i = 0; i < original_line.size(); i++)
     {
         tok += original_line[i];
+
         if (isEmpty(tok))
             tok = "";
+
+        else if (tok == "#")
+            continue;
 
         else if (isKeyword(tok))
         {
@@ -46,9 +52,56 @@ void lexer::Tokenizer()
             tok = "";
         }
 
+        else if (isFloat(tok))
+        {
+            i++;
+            while (i < original_line.size() && isFloat(string(1, original_line[i])))
+            {
+                tok += original_line[i];
+                i++;
+            }
+
+            i--;
+
+            tokens.push_back({FLOAT, tok});
+            tok = "";
+        }
+
         else if (isInt(tok))
         {
+            i++;
+            while (i < original_line.size() && isdigit(original_line[i]))
+            {
+                tok += original_line[i];
+                i++;
+            }
+
+            i--;
+
             tokens.push_back({INT, tok});
+            tok = "";
+        }
+
+        else if (tok == "\"")
+        {
+            i++;
+            while (i < original_line.size() && original_line[i] != '"')
+            {
+                tok += original_line[i];
+                i++;
+            }
+
+            tok += original_line[i];
+            if (i >= original_line.size())
+                errors::runtime("Unterminated string");
+
+            tokens.push_back({STRING, tok});
+            tok = "";
+        }
+
+        else if (tok == ";")
+        {
+            tokens.push_back({SEMICOLON, tok});
             tok = "";
         }
 
@@ -96,10 +149,7 @@ void lexer::Tokenizer()
     }
 
     for (int i = 0; i < tokens.size(); i++)
-    {
         cout << tokens[i].name << endl;
-        cout << endl;
-    }
 }
 
 bool lexer::isKeyword(const string &str)
@@ -122,6 +172,29 @@ bool lexer::isInt(const string& str)
     {
         if (!isdigit(str[i]))
             return false;
+    }
+
+    return true;
+}
+
+bool lexer::isFloat(const string& str)
+{
+    if (str.empty())
+        return false;
+
+    int dot_count = 0;
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (isdigit(str[i]))
+            continue;
+
+        else if (str[i] == '.' && dot_count < 2)
+        {
+            dot_count++;
+            continue;
+        }
+
+        return false;
     }
 
     return true;

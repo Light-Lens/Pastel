@@ -17,17 +17,26 @@ namespace errors
         console::set_console_color(color);
     }
 
+    void throw_error(const string& details)
+    {
+        errors(details);
+        exit(0);
+    }
+
+    void runtime(const string& details)
+    {
+        throw_error(details);
+    }
+
     // Cannot open file.
     void open_file(const string& filename)
     {
-        errors(filename + ": No such file or directory.");
-        exit(0);
+        throw_error(filename + ": No such file or directory.");
     }
 
     // Unrecognized file format.
     void file_format(const string& filename)
     {
-        errors(filename + ": File format not recognized");
-        exit(0);
+        throw_error(filename + ": File format not recognized");
     }
 }
