@@ -11,6 +11,7 @@ private:
     bool isKeyword(const std::string &str);
     bool isInt(const std::string& str);
     bool isFloat(const std::string& str);
+    bool isIdentifier(const std::string& str);
 
 private:
     struct Token;
@@ -21,19 +22,19 @@ private:
 
     enum TokenType
     {
+        DOT,
         INT,
         FLOAT,
-        DOT,
         STRING,
+        KEYWORD,
         SEMICOLON,
         IDENTIFIER,
-        KEYWORD,
-        PLUS,
-        MINUS,
         MUL,
         DIV,
+        PLUS,
+        MINUS,
         LPAREN,
         RPAREN,
-        END
+        UNKNOWN,
     };
 };

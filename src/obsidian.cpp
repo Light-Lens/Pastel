@@ -44,11 +44,26 @@ void lexer::Tokenizer()
             tok = "";
 
         else if (tok == "#")
-            continue;
+            break;
 
         else if (isKeyword(tok))
         {
             tokens.push_back({KEYWORD, tok});
+            tok = "";
+        }
+
+        else if (isIdentifier(tok))
+        {
+            i++;
+            while (i < original_line.size() && isIdentifier(string(1, original_line[i])))
+            {
+                tok += original_line[i];
+                i++;
+            }
+
+            i--;
+
+            tokens.push_back({IDENTIFIER, tok});
             tok = "";
         }
 
@@ -146,6 +161,12 @@ void lexer::Tokenizer()
             tokens.push_back({RPAREN, tok});
             tok = "";
         }
+
+        else
+        {
+            tokens.push_back({UNKNOWN, tok});
+            tok = "";
+        }
     }
 
     for (int i = 0; i < tokens.size(); i++)
@@ -195,6 +216,20 @@ bool lexer::isFloat(const string& str)
         }
 
         return false;
+    }
+
+    return true;
+}
+
+bool lexer::isIdentifier(const string& str)
+{
+    if (str.empty())
+        return false;
+
+    for (int i = 0; i < str.size(); i++)
+    {
+        if (!isalpha(str[i]))
+            return false;
     }
 
     return true;
