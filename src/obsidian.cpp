@@ -97,18 +97,138 @@ void lexer::Tokenizer()
             tok = "";
         }
 
-        else if (tok == "\"")
+        else if (tok == "'")
         {
             i++;
-            while (i < original_line.size() && original_line[i] != '"')
+            while (i < original_line.size() && original_line[i] != '\'')
             {
-                tok += original_line[i];
+                if (i > 1) errors::runtime("Multi-character literal at line " + to_string(line_no+1));
+                else if (original_line[i] == '\\')
+                {
+                    i++;
+                    switch (original_line[i])
+                    {
+                        case '\\':
+                            tok += "\\";
+                            break;
+
+                        case '"':
+                            tok += "\"";
+                            break;
+
+                        case '\'':
+                            tok += "'";
+                            break;
+
+                        case 'n':
+                            tok += "\n";
+                            break;
+
+                        case '0':
+                            tok += "\0";
+                            break;
+
+                        case 't':
+                            tok += "\t";
+                            break;
+
+                        case 'r':
+                            tok += "\r";
+                            break;
+
+                        case 'b':
+                            tok += "\b";
+                            break;
+
+                        case 'a':
+                            tok += "\a";
+                            break;
+
+                        case 'f':
+                            tok += "\f";
+                            break;
+
+                        default:
+                            tok += "\\" + string(1, original_line[i]);
+                            break;
+                    }
+                }
+
+                else tok += original_line[i];
                 i++;
             }
 
             tok += original_line[i];
             if (i >= original_line.size())
-                errors::runtime("Unterminated string");
+                errors::runtime("Unterminated string at line " + to_string(line_no+1));
+
+            tokens.push_back({CHAR, tok});
+            tok = "";
+        }
+
+        else if (tok == "\"")
+        {
+            i++;
+            while (i < original_line.size() && original_line[i] != '"')
+            {
+                if (original_line[i] == '\\')
+                {
+                    i++;
+                    switch (original_line[i])
+                    {
+                        case '\\':
+                            tok += "\\";
+                            break;
+
+                        case '"':
+                            tok += "\"";
+                            break;
+
+                        case '\'':
+                            tok += "'";
+                            break;
+
+                        case 'n':
+                            tok += "\n";
+                            break;
+
+                        case '0':
+                            tok += "\0";
+                            break;
+
+                        case 't':
+                            tok += "\t";
+                            break;
+
+                        case 'r':
+                            tok += "\r";
+                            break;
+
+                        case 'b':
+                            tok += "\b";
+                            break;
+
+                        case 'a':
+                            tok += "\a";
+                            break;
+
+                        case 'f':
+                            tok += "\f";
+                            break;
+
+                        default:
+                            tok += "\\" + string(1, original_line[i]);
+                            break;
+                    }
+                }
+
+                else tok += original_line[i];
+                i++;
+            }
+
+            tok += original_line[i];
+            if (i >= original_line.size())
+                errors::runtime("Unterminated string at line " + to_string(line_no+1));
 
             tokens.push_back({STRING, tok});
             tok = "";
@@ -170,7 +290,7 @@ void lexer::Tokenizer()
     }
 
     for (int i = 0; i < tokens.size(); i++)
-        cout << tokens[i].name << endl;
+        cout << tokens[i].type << ": " << tokens[i].name << endl;
 }
 
 bool lexer::isKeyword(const string &str)

@@ -22,19 +22,20 @@ private:
 
     enum TokenType
     {
-        DOT,
-        INT,
-        FLOAT,
-        STRING,
-        KEYWORD,
-        SEMICOLON,
-        IDENTIFIER,
-        MUL,
-        DIV,
-        PLUS,
-        MINUS,
-        LPAREN,
-        RPAREN,
-        UNKNOWN,
+        DOT, // 0
+        INT, // 1
+        FLOAT, // 2
+        CHAR, // 3
+        STRING, // 4
+        KEYWORD, // 5
+        SEMICOLON, // 6
+        IDENTIFIER, // 7
+        MUL, // 8
+        DIV, // 9
+        PLUS, // 10
+        MINUS, // 12
+        LPAREN, // 13
+        RPAREN, // 13
+        UNKNOWN, // 14
     };
 };
