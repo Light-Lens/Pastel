@@ -8,19 +8,22 @@
 using namespace std;
 using namespace strings;
 
+// ======================= LEXER =======================
+
 int lexer::line_no;
 string lexer::original_line;
 
 struct lexer::Token
 {
-    TokenType type;
+    Tokens::TokenType type;
     string name;
 };
 
 string lexer::keywords[] = {
     "shout",
     "input",
-    "include"
+    "include",
+    "let"
 };
 
 lexer::lexer(const string& current_line, int current_line_no)
@@ -28,10 +31,11 @@ lexer::lexer(const string& current_line, int current_line_no)
     line_no = current_line_no;
     original_line = trim(current_line);
 
-    Tokenizer();
+    vector<lexer::Token> tokens = Tokenizer();
+    parser(tokens, original_line, line_no);
 }
 
-void lexer::Tokenizer()
+vector<lexer::Token> lexer::Tokenizer()
 {
     string tok;
     vector<Token> tokens;
@@ -48,7 +52,7 @@ void lexer::Tokenizer()
 
         else if (isKeyword(tok))
         {
-            tokens.push_back({KEYWORD, tok});
+            tokens.push_back({Tokens::KEYWORD, tok});
             tok = "";
         }
 
@@ -63,7 +67,7 @@ void lexer::Tokenizer()
 
             i--;
 
-            tokens.push_back({IDENTIFIER, tok});
+            tokens.push_back({Tokens::IDENTIFIER, tok});
             tok = "";
         }
 
@@ -78,7 +82,7 @@ void lexer::Tokenizer()
 
             i--;
 
-            tokens.push_back({FLOAT, tok});
+            tokens.push_back({Tokens::FLOAT, tok});
             tok = "";
         }
 
@@ -93,7 +97,7 @@ void lexer::Tokenizer()
 
             i--;
 
-            tokens.push_back({INT, tok});
+            tokens.push_back({Tokens::INT, tok});
             tok = "";
         }
 
@@ -162,7 +166,7 @@ void lexer::Tokenizer()
             if (i >= original_line.size())
                 errors::runtime("Unterminated string at line " + to_string(line_no+1));
 
-            tokens.push_back({CHAR, tok});
+            tokens.push_back({Tokens::CHAR, tok});
             tok = "";
         }
 
@@ -230,67 +234,78 @@ void lexer::Tokenizer()
             if (i >= original_line.size())
                 errors::runtime("Unterminated string at line " + to_string(line_no+1));
 
-            tokens.push_back({STRING, tok});
+            tokens.push_back({Tokens::STRING, tok});
             tok = "";
         }
 
         else if (tok == ";")
         {
-            tokens.push_back({SEMICOLON, tok});
+            tokens.push_back({Tokens::SEMICOLON, tok});
+            tok = "";
+        }
+
+        else if (tok == ",")
+        {
+            tokens.push_back({Tokens::COMMA, tok});
             tok = "";
         }
 
         else if (tok == ".")
         {
-            tokens.push_back({DOT, tok});
+            tokens.push_back({Tokens::DOT, tok});
+            tok = "";
+        }
+
+        else if (tok == "=")
+        {
+            tokens.push_back({Tokens::EQUALS, tok});
             tok = "";
         }
 
         else if (tok == "+")
         {
-            tokens.push_back({PLUS, tok});
+            tokens.push_back({Tokens::PLUS, tok});
             tok = "";
         }
 
         else if (tok == "-")
         {
-            tokens.push_back({MINUS, tok});
+            tokens.push_back({Tokens::MINUS, tok});
             tok = "";
         }
 
         else if (tok == "*")
         {
-            tokens.push_back({MUL, tok});
+            tokens.push_back({Tokens::MUL, tok});
             tok = "";
         }
 
         else if (tok == "/")
         {
-            tokens.push_back({DIV, tok});
+            tokens.push_back({Tokens::DIV, tok});
             tok = "";
         }
 
         else if (tok == "(")
         {
-            tokens.push_back({LPAREN, tok});
+            tokens.push_back({Tokens::LPAREN, tok});
             tok = "";
         }
 
         else if (tok == ")")
         {
-            tokens.push_back({RPAREN, tok});
+            tokens.push_back({Tokens::RPAREN, tok});
             tok = "";
         }
 
         else
         {
-            tokens.push_back({UNKNOWN, tok});
+            tokens.push_back({Tokens::UNKNOWN, tok});
             tok = "";
         }
     }
 
-    for (int i = 0; i < tokens.size(); i++)
-        cout << tokens[i].type << ": " << tokens[i].name << endl;
+    return tokens;
 }
 
 bool lexer::isKeyword(const string &str)
@@ -353,4 +368,14 @@ bool lexer::isIdentifier(const string& str)
     }
 
     return true;
+}
+
+// ======================= PARSER =======================
+
+parser::parser(vector<lexer::Token> tokens, string original_line, int line_no)
+{
+    for (int i = 0; i < tokens.size(); i++)
+    {
+        if (tokens[i].type == Tokens::STRING) cout << tokens[i].name << endl;
+    }
 }

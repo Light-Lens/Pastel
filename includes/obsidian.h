@@ -1,25 +1,8 @@
 #pragma once
 #include <iostream>
 
-class lexer
+namespace Tokens
 {
-public:
-    lexer(const std::string& current_line, int current_line_no);
-
-private:
-    void Tokenizer();
-    bool isKeyword(const std::string &str);
-    bool isInt(const std::string& str);
-    bool isFloat(const std::string& str);
-    bool isIdentifier(const std::string& str);
-
-private:
-    struct Token;
-
-    static int line_no;
-    static std::string original_line;
-    static std::string keywords[];
-
     enum TokenType
     {
         DOT, // 0
@@ -37,5 +20,34 @@ private:
         LPAREN, // 13
         RPAREN, // 13
         UNKNOWN, // 14
+        COMMA, // 15
+        EQUALS // 16
     };
+};
+
+class lexer
+{
+public:
+    struct Token;
+
+private:
+    static int line_no;
+    static std::string original_line;
+    static std::string keywords[];
+
+public:
+    lexer(const std::string& current_line, int current_line_no);
+
+private:
+    std::vector<lexer::Token> Tokenizer();
+    bool isKeyword(const std::string &str);
+    bool isInt(const std::string& str);
+    bool isFloat(const std::string& str);
+    bool isIdentifier(const std::string& str);
+};
+
+class parser
+{
+public:
+    parser(std::vector<lexer::Token> tokens, std::string original_line, int line_no);
 };
