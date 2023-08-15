@@ -23,7 +23,8 @@ string lexer::keywords[] = {
     "shout",
     "input",
     "include",
-    "let"
+    "let",
+    "fun"
 };
 
 lexer::lexer(const string& current_line, int current_line_no)
