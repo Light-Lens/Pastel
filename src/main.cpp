@@ -1,4 +1,4 @@
-#include <iostream>
+#include "manager.h"
 
 using namespace std;
 
@@ -8,10 +8,12 @@ bool endswith(const string& sentence, const string& what_to_find)
         sentence.compare(sentence.length() - what_to_find.length(), what_to_find.length(), what_to_find) == 0;
 }
 
-int main(int argv, char** args)
+int main(int argc, char *argv[])
 {
-    string name = args[1];
-    if (argv > 1)
+    vector<string> cmd_line_args = manager::arguments(argc, argv);
+
+    string name = cmd_line_args[0];
+    if (argc > 1)
     {
         if (endswith(name, ".pastel"))
             cout << name << endl;
