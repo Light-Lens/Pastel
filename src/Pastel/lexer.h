@@ -6,10 +6,10 @@ namespace Pastel
     {
     public:
         // lexer(const std::string& current_line, const int& current_line_no);
-        lexer(const std::fstream& filename);
+        lexer(std::fstream& file);
 
     private:
         std::string current_line;
-        int current_line_no;
+        int current_line_no = 1;
     };
 }

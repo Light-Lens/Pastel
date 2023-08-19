@@ -2,7 +2,7 @@
 
 if "%1" == "clean" (
     rmdir bin /S /Q
-    del src/pastelpch.h
+    del src\pastelpch.h.gch
 )
 
 if not exist src/pastelpch.h.gch (
