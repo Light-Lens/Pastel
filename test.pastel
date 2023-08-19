@@ -1,0 +1,14 @@
+include "iostream"
+
+std::cout("Hello world!");
+shout("Hello world!");
+
+fun test(int a, int b)
+{
+    return a+b;
+}
+
+std::string test2(int a, int b)
+{
+    return to_string(a+b);
+}

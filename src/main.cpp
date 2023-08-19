@@ -20,6 +20,8 @@ int main(int argc, char const *argv[])
         init_folders();
         if (utils::lowercase(arg) == "install")
         {
+            // install any libraries into the vendor folder to be used by c++
+            // for eg, SDL2 or spdlog, it will automatically be included during compilation
             std::string lib_name = argv[2];
             utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
         }
