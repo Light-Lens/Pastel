@@ -1,18 +1,21 @@
 #include "../pastelpch.h"
 #include "strings.h"
 
-bool endswith(const std::string& sentence, const std::string& what_to_find)
+namespace Strings
 {
-    return sentence.length() >= what_to_find.length() &&
-        sentence.compare(sentence.length() - what_to_find.length(), what_to_find.length(), what_to_find) == 0;
-}
-
-std::string lowercase(std::string str)
-{
-    for (char& c : str)
+    bool endswith(const std::string& sentence, const std::string& what_to_find)
     {
-        c = std::tolower(c);
+        return sentence.length() >= what_to_find.length() &&
+            sentence.compare(sentence.length() - what_to_find.length(), what_to_find.length(), what_to_find) == 0;
     }
 
-    return str;
+    std::string lowercase(std::string str)
+    {
+        for (char& c : str)
+        {
+            c = std::tolower(c);
+        }
+
+        return str;
+    }
 }

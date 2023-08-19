@@ -1,16 +1,19 @@
 #include "../pastelpch.h"
 #include "fileio.h"
 
-void create_dir(const std::filesystem::path& folderpath)
+namespace FileIO
 {
-    // Check if the folder already exists
-    if (!std::filesystem::exists(folderpath))
+    void create_dir(const std::filesystem::path& folderpath)
     {
-        // Create the folder
-        if (!std::filesystem::create_directory(folderpath))
-            std::cout << "Failed to create folder." << std::endl;
+        // Check if the folder already exists
+        if (!std::filesystem::exists(folderpath))
+        {
+            // Create the folder
+            if (!std::filesystem::create_directory(folderpath))
+                std::cout << "Failed to create folder." << std::endl;
+        }
+        
+        else
+            std::cout << "Folder already exists." << std::endl;
     }
-    
-    else
-        std::cout << "Folder already exists." << std::endl;
 }
