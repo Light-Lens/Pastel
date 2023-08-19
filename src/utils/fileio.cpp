@@ -1,7 +1,7 @@
 #include "../pastelpch.h"
 #include "fileio.h"
 
-namespace FileIO
+namespace utils
 {
     void create_dir(const std::filesystem::path& folderpath)
     {
