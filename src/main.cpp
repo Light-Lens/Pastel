@@ -18,6 +18,12 @@ int main(int argc, char const *argv[])
         if (Strings::lowercase(name) == "init")
             init_folders();
 
+        else if (Strings::lowercase(name) == "install")
+        {
+            std::string lib_name = argv[2];
+            FileIO::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
+        }
+
         // if (endswith(name, ".pastel"))
         //     std::cout << name << std::endl;
     }
