@@ -20,9 +20,9 @@ fun test(int a, int b)
 
 }
 
-std::string test2(int a, int b)
+std::string test2(string a)
 {
-    return to_string(a+b);
+    return a;
 }
 
 // this comment is another test.

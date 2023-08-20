@@ -7,7 +7,8 @@ namespace Pastel
     public:
         enum TokenType
         {
-            UNKNOWN = 0,
+            EMPTY = 0,
+            UNKNOWN,
             COMMENT,
             SYMBOL,
             STRING,
@@ -26,10 +27,11 @@ namespace Pastel
             std::string name;
         };
 
-        std::string keywords[21] = {
+        std::string keywords[22] = {
             "include",
             "let",
             "auto",
+            "const",
             "var",
             "str",
             "int",
