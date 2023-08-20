@@ -1,54 +1,30 @@
 #include "../pastelpch.h"
 #include "../utils/strings.h"
 #include "errors.h"
+#include "parser.h"
 #include "lexer.h"
 
 namespace Pastel
 {
-    enum TokenType
-    {
-        EMPTY = 0,
-        UNKNOWN,
-        COMMENT,
-        SYMBOL,
-        STRING,
-        INT,
-        FLOAT,
-        CHAR,
-        KEYWORD,
-        IDENTIFIER,
-        OPERATOR,
-        PAREN,
-    };
-
-    std::string lexer::keywords[] = {
-        "include",
-        "let"
-    };
-
-    struct lexer::Token
-    {
-        TokenType type;
-        std::string name;
-    };
-
     lexer::lexer(std::fstream& file)
     {
         while (std::getline(file, current_line))
         {
-            std::vector<Token> tokens = tokenizer();
-            for (int i = 0; i < tokens.size(); i++)
-                std::cout << tokens[i].name;
+            parser parse;
+            std::vector<Tokens::Token> tokens = tokenizer();
 
-            std::cout << std::endl;
+            parse.current_line = current_line;
+            parse.current_line_no = current_line_no;
+            parse.translator(tokens);
+
             ++current_line_no;
         }
     }
 
-    std::vector<lexer::Token> lexer::tokenizer()
+    std::vector<Tokens::Token> lexer::tokenizer()
     {
         std::string tok;
-        std::vector<Token> tokens;
+        std::vector<Tokens::Token> tokens;
 
         for (int i = 0; i < current_line.size(); i++)
         {
@@ -56,7 +32,7 @@ namespace Pastel
 
             if (utils::is_empty(tok))
             {
-                tokens.push_back({EMPTY, tok});
+                tokens.push_back({Tokens::TokenType::EMPTY, tok});
                 tok.clear();
             }
 
@@ -71,26 +47,26 @@ namespace Pastel
 
                 i--;
 
-                tokens.push_back({COMMENT, tok});
+                tokens.push_back({Tokens::TokenType::COMMENT, tok});
                 tok.clear();
                 break;
             }
 
             else if (is_paren(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({PAREN, tok});
+                tokens.push_back({Tokens::TokenType::PAREN, tok});
                 tok.clear();
             }
 
             else if (is_symbol(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({SYMBOL, tok});
+                tokens.push_back({Tokens::TokenType::SYMBOL, tok});
                 tok.clear();
             }
 
             else if (is_operator(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({OPERATOR, tok});
+                tokens.push_back({Tokens::TokenType::OPERATOR, tok});
                 tok.clear();
             }
 
@@ -106,10 +82,10 @@ namespace Pastel
                 i--;
 
                 if (is_keyword(tok))
-                    tokens.push_back({KEYWORD, tok});
+                    tokens.push_back({Tokens::TokenType::KEYWORD, tok});
 
                 else
-                    tokens.push_back({IDENTIFIER, tok});
+                    tokens.push_back({Tokens::TokenType::IDENTIFIER, tok});
 
                 tok.clear();
             }
@@ -126,17 +102,16 @@ namespace Pastel
                 i--;
 
                 if (is_int(tok))
-                    tokens.push_back({INT, tok});
+                    tokens.push_back({Tokens::TokenType::INT, tok});
 
                 else
-                    tokens.push_back({FLOAT, tok});
+                    tokens.push_back({Tokens::TokenType::FLOAT, tok});
 
                 tok.clear();
             }
 
             else if (tok == "'" || tok == "\"")
             {
-                // parse_string(current_line, tok, current_line[i], i);
                 char str_char_symbol = tok[0];
 
                 i++;
@@ -152,22 +127,20 @@ namespace Pastel
                     errors::runtime("Unterminated char at line " + std::to_string(current_line_no));
 
                 if (current_line[i] == '"')
-                    tokens.push_back({STRING, tok});
+                    tokens.push_back({Tokens::TokenType::STRING, tok});
+
+                    // if (tok.size() > 3)
+                    //     errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
 
                 if (current_line[i] == '\'')
-                {
-                    if (tok.size() > 3)
-                        errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
-
-                    tokens.push_back({CHAR, tok});
-                }
+                    tokens.push_back({Tokens::TokenType::CHAR, tok});
 
                 tok.clear();
             }
 
             else
             {
-                tokens.push_back({UNKNOWN, tok});
+                tokens.push_back({Tokens::TokenType::UNKNOWN, tok});
                 tok.clear();
             }
         }
@@ -177,9 +150,10 @@ namespace Pastel
 
     bool lexer::is_keyword(const std::string& str)
     {
-        for (int i = 0; i < (sizeof(keywords) / sizeof(keywords[0])); i++)
+        Tokens t;
+        for (int i = 0; i < (sizeof(t.keywords) / sizeof(t.keywords[0])); i++)
         {
-            if (str == keywords[i])
+            if (str == t.keywords[i])
                 return true;
         }
 
@@ -254,89 +228,4 @@ namespace Pastel
     {
         return c == '(' || c == ')' || c == '[' || c == ']';
     }
-
-    void lexer::parse_string(const std::string& current_line, std::string& tok, const char& str_symbol, int& i)
-    {
-        i++;
-        while (i < current_line.size() && current_line[i] != str_symbol)
-        {
-            // if (current_line[i] == '\\')
-            // {
-            //     i++;
-            //     switch (current_line[i])
-            //     {
-            //     case '\\':
-            //         tok += "\\";
-            //         break;
-
-            //     case '"':
-            //         tok += "\"";
-            //         break;
-
-            //     case '\'':
-            //         tok += "'";
-            //         break;
-
-            //     case 'n':
-            //         tok += "\n";
-            //         break;
-
-            //     case '0':
-            //         tok += "\0";
-            //         break;
-
-            //     case 't':
-            //         tok += "\t";
-            //         break;
-
-            //     case 'r':
-            //         tok += "\r";
-            //         break;
-
-            //     case 'b':
-            //         tok += "\b";
-            //         break;
-
-            //     case 'a':
-            //         tok += "\a";
-            //         break;
-
-            //     case 'f':
-            //         tok += "\f";
-            //         break;
-
-            //     default:
-            //         tok += "\\" + std::string(1, current_line[i]);
-            //         break;
-            //     }
-            // }
-
-            // else
-            //     tok += current_line[i];
-
-            tok += current_line[i];
-            i++;
-        }
-
-        tok += current_line[i];
-        if (i >= current_line.size())
-            errors::runtime("Unterminated char at line " + std::to_string(current_line_no));
-    }
-
-    // std::vector<std::string> lexer::parser()
-    // {
-    //     std::string tok;
-    //     std::vector<std::string> tokens;
-
-    //     for (int i = 0; i < current_line.size(); i++)
-    //     {
-    //         tok += current_line[i];
-
-    //         if (tok == "include")
-    //             tok = "#include";
-    //     }
-
-    //     tokens.push_back(tok);
-    //     return tokens;
-    // }
 }
