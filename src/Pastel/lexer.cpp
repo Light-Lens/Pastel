@@ -18,8 +18,12 @@ namespace Pastel
         KEYWORD,
         IDENTIFIER,
         OPERATOR,
-        LPAREN,
-        RPAREN
+        PAREN,
+    };
+
+    std::string lexer::keywords[] = {
+        "include",
+        "let"
     };
 
     struct lexer::Token
@@ -34,8 +38,9 @@ namespace Pastel
         {
             std::vector<Token> tokens = tokenizer();
             for (int i = 0; i < tokens.size(); i++)
-                std::cout << tokens[i].name << " (" << tokens[i].type << ")" << std::endl;
+                std::cout << tokens[i].name;
 
+            std::cout << std::endl;
             ++current_line_no;
         }
     }
@@ -71,13 +76,19 @@ namespace Pastel
                 break;
             }
 
-            else if (is_symbol(tok))
+            else if (is_paren(current_line[i]) && tok.size() == sizeof(current_line[i]))
+            {
+                tokens.push_back({PAREN, tok});
+                tok.clear();
+            }
+
+            else if (is_symbol(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
                 tokens.push_back({SYMBOL, tok});
                 tok.clear();
             }
 
-            else if (is_operator(current_line[i]))
+            else if (is_operator(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
                 tokens.push_back({OPERATOR, tok});
                 tok.clear();
@@ -94,7 +105,12 @@ namespace Pastel
 
                 i--;
 
-                tokens.push_back({IDENTIFIER, tok});
+                if (is_keyword(tok))
+                    tokens.push_back({KEYWORD, tok});
+
+                else
+                    tokens.push_back({IDENTIFIER, tok});
+
                 tok.clear();
             }
 
@@ -120,12 +136,25 @@ namespace Pastel
 
             else if (tok == "'" || tok == "\"")
             {
-                parse_string(current_line, tok, current_line[i], i);
+                // parse_string(current_line, tok, current_line[i], i);
+                char str_char_symbol = tok[0];
+
+                i++;
+                while (i < current_line.size() && current_line[i] != str_char_symbol)
+                {
+                    tok += current_line[i];
+                    i++;
+                }
+
+                tok += current_line[i];
+
+                if (i >= current_line.size())
+                    errors::runtime("Unterminated char at line " + std::to_string(current_line_no));
 
                 if (current_line[i] == '"')
                     tokens.push_back({STRING, tok});
 
-                else if (current_line[i] == '\'')
+                if (current_line[i] == '\'')
                 {
                     if (tok.size() > 3)
                         errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
@@ -144,6 +173,17 @@ namespace Pastel
         }
 
         return tokens;
+    }
+
+    bool lexer::is_keyword(const std::string& str)
+    {
+        for (int i = 0; i < (sizeof(keywords) / sizeof(keywords[0])); i++)
+        {
+            if (str == keywords[i])
+                return true;
+        }
+
+        return false;
     }
 
     bool lexer::is_identifier(const std::string& str)
@@ -204,9 +244,15 @@ namespace Pastel
                c == '!' || c == '&' || c == '|';
     }
 
-    bool lexer::is_symbol(const std::string& str)
+    bool lexer::is_symbol(const char& c)
     {
-        return str == "::" || str == ":" || str == "." || str == "," || str == ";";
+        return c == ':' || c == '.' || c == ',' || c == ';' ||
+               c == '#' || c == '@';
+    }
+
+    bool lexer::is_paren(const char& c)
+    {
+        return c == '(' || c == ')' || c == '[' || c == ']';
     }
 
     void lexer::parse_string(const std::string& current_line, std::string& tok, const char& str_symbol, int& i)
@@ -214,60 +260,61 @@ namespace Pastel
         i++;
         while (i < current_line.size() && current_line[i] != str_symbol)
         {
-            if (current_line[i] == '\\')
-            {
-                i++;
-                switch (current_line[i])
-                {
-                case '\\':
-                    tok += "\\";
-                    break;
+            // if (current_line[i] == '\\')
+            // {
+            //     i++;
+            //     switch (current_line[i])
+            //     {
+            //     case '\\':
+            //         tok += "\\";
+            //         break;
 
-                case '"':
-                    tok += "\"";
-                    break;
+            //     case '"':
+            //         tok += "\"";
+            //         break;
 
-                case '\'':
-                    tok += "'";
-                    break;
+            //     case '\'':
+            //         tok += "'";
+            //         break;
 
-                case 'n':
-                    tok += "\n";
-                    break;
+            //     case 'n':
+            //         tok += "\n";
+            //         break;
 
-                case '0':
-                    tok += "\0";
-                    break;
+            //     case '0':
+            //         tok += "\0";
+            //         break;
 
-                case 't':
-                    tok += "\t";
-                    break;
+            //     case 't':
+            //         tok += "\t";
+            //         break;
 
-                case 'r':
-                    tok += "\r";
-                    break;
+            //     case 'r':
+            //         tok += "\r";
+            //         break;
 
-                case 'b':
-                    tok += "\b";
-                    break;
+            //     case 'b':
+            //         tok += "\b";
+            //         break;
 
-                case 'a':
-                    tok += "\a";
-                    break;
+            //     case 'a':
+            //         tok += "\a";
+            //         break;
 
-                case 'f':
-                    tok += "\f";
-                    break;
+            //     case 'f':
+            //         tok += "\f";
+            //         break;
 
-                default:
-                    tok += "\\" + std::string(1, current_line[i]);
-                    break;
-                }
-            }
+            //     default:
+            //         tok += "\\" + std::string(1, current_line[i]);
+            //         break;
+            //     }
+            // }
 
-            else
-                tok += current_line[i];
+            // else
+            //     tok += current_line[i];
 
+            tok += current_line[i];
             i++;
         }
 
