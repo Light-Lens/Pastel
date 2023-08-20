@@ -1,7 +1,5 @@
 #pragma once
 
-#include "tokens.h"
-
 namespace Pastel
 {
     class lexer

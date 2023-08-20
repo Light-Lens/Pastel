@@ -45,39 +45,3 @@ void run(std::fstream& file)
         ++current_line_no;
     }
 }
-
-// void run(const std::string& filename)
-// {
-//     std::fstream file;
-
-//     // Open the file
-//     file.open(filename);
-
-//     // Interpret the file line by line
-//     if (file)
-//     {
-//         int current_line_no = 1;
-//         std::string current_line;
-
-//         while (std::getline(file, current_line))
-//         {
-//             Pastel::lexer lex;
-//             lex.current_line = current_line;
-//             lex.current_line_no = current_line_no;
-
-//             Pastel::parser parse;
-//             parse.current_line = current_line;
-//             parse.current_line_no = current_line_no;
-//             parse.translator(lex.tokenizer());
-
-//             ++current_line_no;
-//         }
-//     }
-
-//     // Throw error if the file can't be opened.
-//     else
-//         Pastel::errors::open_file(filename);
-
-//     // Close the file
-//     file.close();
-// }

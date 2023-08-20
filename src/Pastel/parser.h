@@ -9,6 +9,6 @@ namespace Pastel
         int current_line_no;
 
     public:
-        void translator(const std::vector<Tokens::Token>& tokens);
+        void translator(const std::vector<tokens::token>& tokens);
     };
 }
