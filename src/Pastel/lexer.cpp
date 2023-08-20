@@ -1,27 +1,12 @@
 #include "../pastelpch.h"
 #include "../utils/strings.h"
 #include "errors.h"
-#include "parser.h"
 #include "lexer.h"
+#include "parser.h"
 
 namespace Pastel
 {
-    lexer::lexer(std::fstream& file)
-    {
-        while (std::getline(file, current_line))
-        {
-            parser parse;
-            std::vector<Tokens::Token> tokens = tokenizer();
-
-            parse.current_line = current_line;
-            parse.current_line_no = current_line_no;
-            parse.translator(tokens);
-
-            ++current_line_no;
-        }
-    }
-
-    std::vector<Tokens::Token> lexer::tokenizer()
+    std::vector<Tokens::Token> lexer::tokenizer(const std::string& current_line, const int& current_line_no)
     {
         std::string tok;
         std::vector<Tokens::Token> tokens;
@@ -31,10 +16,7 @@ namespace Pastel
             tok += current_line[i];
 
             if (utils::is_empty(tok))
-            {
-                tokens.push_back({Tokens::TokenType::EMPTY, tok});
                 tok.clear();
-            }
 
             else if (current_line[i] == '/' && current_line[i+1] == '/')
             {

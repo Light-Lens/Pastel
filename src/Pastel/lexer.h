@@ -6,15 +6,10 @@ namespace Pastel
 {
     class lexer
     {
-    private:
-        int current_line_no = 1;
-        std::string current_line;
-
     public:
-        lexer(std::fstream& file);
+        std::vector<Tokens::Token> tokenizer(const std::string& current_line, const int& current_line_no);
 
     private:
-        std::vector<Tokens::Token> tokenizer();
         bool is_keyword(const std::string& str);
         bool is_identifier(const std::string& str);
         bool is_int(const std::string& str);

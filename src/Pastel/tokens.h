@@ -7,8 +7,7 @@ namespace Pastel
     public:
         enum TokenType
         {
-            EMPTY = 0,
-            UNKNOWN,
+            UNKNOWN = 0,
             COMMENT,
             SYMBOL,
             STRING,

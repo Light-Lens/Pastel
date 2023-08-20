@@ -7,10 +7,6 @@ namespace Pastel
     class parser
     {
     public:
-        int current_line_no;
-        std::string current_line;
-
-    public:
-        void translator(std::vector<Tokens::Token> tokens);
+        parser(const std::vector<Tokens::Token>& tokens, const std::string& current_line, const int& line_no);
     };
 }

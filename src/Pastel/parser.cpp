@@ -3,24 +3,11 @@
 
 namespace Pastel
 {
-    void parser::translator(std::vector<Tokens::Token> tokens)
+    parser::parser(const std::vector<Tokens::Token>& tokens, const std::string& current_line, const int& line_no)
     {
-        // std::cout << current_line_no << ". " << current_line << std::endl;
         for (int i = 0; i < tokens.size(); i++)
             std::cout << tokens[i].name;
 
         std::cout << std::endl;
-
-
-
-        // std::string tok;
-
-        // for (int i = 0; i < current_line.size(); i++)
-        // {
-        //     tok += current_line[i];
-
-        //     if (tok == "include")
-        //         tok = "#include";
-        // }
     }
 }
