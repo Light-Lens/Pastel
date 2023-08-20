@@ -11,7 +11,7 @@ namespace Pastel
         int current_line_no;
 
     public:
-        std::vector<Pastel::token> tokenizer();
+        std::vector<token> tokenizer();
 
     private:
         bool is_keyword(const std::string& str);
