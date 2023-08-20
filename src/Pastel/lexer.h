@@ -1,5 +1,7 @@
 #pragma once
 
+#include "tokens.h"
+
 namespace Pastel
 {
     class lexer
@@ -9,7 +11,7 @@ namespace Pastel
         int current_line_no;
 
     public:
-        std::vector<Tokens::Token> tokenizer();
+        std::vector<Pastel::token> tokenizer();
 
     private:
         bool is_keyword(const std::string& str);

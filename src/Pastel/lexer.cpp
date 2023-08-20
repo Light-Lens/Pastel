@@ -1,15 +1,15 @@
 #include "../pastelpch.h"
+#include "lexer.h"
+
 #include "../utils/strings.h"
 #include "errors.h"
-#include "lexer.h"
-#include "parser.h"
 
 namespace Pastel
 {
-    std::vector<Tokens::Token> lexer::tokenizer()
+    std::vector<token> lexer::tokenizer()
     {
         std::string tok;
-        std::vector<Tokens::Token> tokens;
+        std::vector<token> tokens;
 
         for (int i = 0; i < current_line.size(); i++)
         {
@@ -17,7 +17,7 @@ namespace Pastel
 
             if (utils::is_empty(tok))
             {
-                tokens.push_back({Tokens::TokenType::EMPTY, tok});
+                tokens.push_back({token_type::EMPTY, tok});
                 tok.clear();
             }
 
@@ -32,26 +32,26 @@ namespace Pastel
 
                 i--;
 
-                tokens.push_back({Tokens::TokenType::COMMENT, tok});
+                tokens.push_back({token_type::COMMENT, tok});
                 tok.clear();
                 break;
             }
 
             else if (is_paren(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({Tokens::TokenType::PAREN, tok});
+                tokens.push_back({token_type::PAREN, tok});
                 tok.clear();
             }
 
             else if (is_symbol(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({Tokens::TokenType::SYMBOL, tok});
+                tokens.push_back({token_type::SYMBOL, tok});
                 tok.clear();
             }
 
             else if (is_operator(current_line[i]) && tok.size() == sizeof(current_line[i]))
             {
-                tokens.push_back({Tokens::TokenType::OPERATOR, tok});
+                tokens.push_back({token_type::OPERATOR, tok});
                 tok.clear();
             }
 
@@ -67,10 +67,10 @@ namespace Pastel
                 i--;
 
                 if (is_keyword(tok))
-                    tokens.push_back({Tokens::TokenType::KEYWORD, tok});
+                    tokens.push_back({token_type::KEYWORD, tok});
 
                 else
-                    tokens.push_back({Tokens::TokenType::IDENTIFIER, tok});
+                    tokens.push_back({token_type::IDENTIFIER, tok});
 
                 tok.clear();
             }
@@ -87,10 +87,10 @@ namespace Pastel
                 i--;
 
                 if (is_int(tok))
-                    tokens.push_back({Tokens::TokenType::INT, tok});
+                    tokens.push_back({token_type::INT, tok});
 
                 else
-                    tokens.push_back({Tokens::TokenType::FLOAT, tok});
+                    tokens.push_back({token_type::FLOAT, tok});
 
                 tok.clear();
             }
@@ -112,23 +112,17 @@ namespace Pastel
                     errors::runtime("Unterminated char at line " + std::to_string(current_line_no));
 
                 if (current_line[i] == '"')
-                    tokens.push_back({Tokens::TokenType::STRING, tok});
-
+                    tokens.push_back({token_type::STRING, tok});
 
                 if (current_line[i] == '\'')
-                {
-                    if (tok.size() > 3)
-                        errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
-
-                    tokens.push_back({Tokens::TokenType::CHAR, tok});
-                }
+                    tokens.push_back({token_type::CHAR, tok});
 
                 tok.clear();
             }
 
             else
             {
-                tokens.push_back({Tokens::TokenType::UNKNOWN, tok});
+                tokens.push_back({token_type::UNKNOWN, tok});
                 tok.clear();
             }
         }
@@ -138,10 +132,9 @@ namespace Pastel
 
     bool lexer::is_keyword(const std::string& str)
     {
-        Tokens t;
-        for (int i = 0; i < (sizeof(t.keywords) / sizeof(t.keywords[0])); i++)
+        for (int i = 0; i < (keywords->size() / keywords[0].size()); i++)
         {
-            if (str == t.keywords[i])
+            if (str == keywords[i])
                 return true;
         }
 

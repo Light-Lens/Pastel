@@ -2,68 +2,27 @@
 
 namespace Pastel
 {
-    namespace tokens
+    enum token_type
     {
-        enum token_type;
-        struct token;
-        static std::string keywords[];
+        EMPTY = 0,
+        UNKNOWN,
+        COMMENT,
+        SYMBOL,
+        STRING,
+        INT,
+        FLOAT,
+        CHAR,
+        KEYWORD,
+        IDENTIFIER,
+        OPERATOR,
+        PAREN,
     };
+
+    struct token
+    {
+        token_type type;
+        std::string name;
+    };
+
+    extern const std::string keywords[];
 }
-
-
-
-// #pragma once
-
-// namespace Pastel
-// {
-//     class Tokens
-//     {
-//     public:
-//         enum TokenType
-//         {
-//             EMPTY = 0,
-//             UNKNOWN,
-//             COMMENT,
-//             SYMBOL,
-//             STRING,
-//             INT,
-//             FLOAT,
-//             CHAR,
-//             KEYWORD,
-//             IDENTIFIER,
-//             OPERATOR,
-//             PAREN,
-//         };
-
-//         struct Token
-//         {
-//             TokenType type;
-//             std::string name;
-//         };
-
-//         std::string keywords[22] = {
-//             "include",
-//             "let",
-//             "auto",
-//             "const",
-//             "var",
-//             "str",
-//             "int",
-//             "float",
-//             "bool",
-//             "double",
-//             "return",
-//             "fun",
-//             "void",
-//             "struct",
-//             "class",
-//             "namespace",
-//             "enum",
-//             "switch",
-//             "case",
-//             "if",
-//             "elif",
-//             "else"
-//         };
-//     };
-// }

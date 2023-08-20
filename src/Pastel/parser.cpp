@@ -4,7 +4,7 @@
 
 namespace Pastel
 {
-    void parser::translator(const std::vector<tokens::token>& tokens)
+    void parser::translator(const std::vector<token>& tokens)
     {
         std::string tok;
         std::vector<std::string> translation;

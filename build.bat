@@ -1,8 +1,13 @@
 @echo off
 
 if "%1" == "clean" (
-    rmdir bin /S /Q
-    del src\pastelpch.h.gch
+    if exist bin (
+        rmdir bin /S /Q
+    )
+
+    if exist src\pastelpch.h.gch (
+        del src\pastelpch.h.gch
+    )
 )
 
 if not exist src/pastelpch.h.gch (
