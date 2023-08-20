@@ -1,31 +1,32 @@
 #include "../pastelpch.h"
+#include "tokens.h"
 #include "parser.h"
 
 namespace Pastel
 {
-    parser::parser(const std::vector<Tokens::Token>& tokens, const std::string& current_line, const int& line_no)
+    void parser::translator(const std::vector<Tokens::Token>& tokens)
     {
-        std::string token;
+        std::string tok;
         std::vector<std::string> translation;
 
         for (int i = 0; i < tokens.size(); i++)
         {
-            token += tokens[i].name;
+            tok += tokens[i].name;
 
-            if (token == "include")
-                token = "#include";
+            if (tok == "include")
+                tok = "#include";
 
-            else if (token == "let")
-                token = "auto";
+            else if (tok == "let")
+                tok = "auto";
 
-            else if (token == "string")
-                token = "std::string";
+            else if (tok == "string")
+                tok = "std::string";
 
-            else if (token == "fun")
-                token = "void";
+            else if (tok == "fun")
+                tok = "void";
         }
 
-        translation.push_back(token);
+        translation.push_back(tok);
 
         for (int i = 0; i < translation.size(); i++)
             std::cout << translation[i] << std::endl;

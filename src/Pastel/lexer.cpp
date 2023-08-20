@@ -6,7 +6,7 @@
 
 namespace Pastel
 {
-    std::vector<Tokens::Token> lexer::tokenizer(const std::string& current_line, const int& current_line_no)
+    std::vector<Tokens::Token> lexer::tokenizer()
     {
         std::string tok;
         std::vector<Tokens::Token> tokens;
@@ -114,11 +114,14 @@ namespace Pastel
                 if (current_line[i] == '"')
                     tokens.push_back({Tokens::TokenType::STRING, tok});
 
-                    // if (tok.size() > 3)
-                    //     errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
 
                 if (current_line[i] == '\'')
+                {
+                    if (tok.size() > 3)
+                        errors::runtime("Multi-character literal at line " + std::to_string(current_line_no));
+
                     tokens.push_back({Tokens::TokenType::CHAR, tok});
+                }
 
                 tok.clear();
             }

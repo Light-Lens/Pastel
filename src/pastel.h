@@ -24,32 +24,60 @@ void install_lib(const std::string& lib_name)
     utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
 }
 
-// tokenizse and parse the text file.
-void run(const std::string& filename)
+// tokenizse the file line by line.
+// then translate the each line to c++ syntax using the parser.
+void run(std::fstream& file)
 {
-    std::fstream file;
+    int current_line_no = 1;
+    std::string current_line;
 
-    // Open the file
-    file.open(filename);
-
-    // Interpret the file line by line
-    if (file)
+    while (std::getline(file, current_line))
     {
-        int current_line_no = 1;
-        std::string current_line;
+        Pastel::lexer lex;
+        lex.current_line = current_line;
+        lex.current_line_no = current_line_no;
 
-        while (std::getline(file, current_line))
-        {
-            Pastel::lexer lx;
-            Pastel::parser(lx.tokenizer(current_line, current_line_no), current_line, current_line_no);
-            ++current_line_no;
-        }
+        Pastel::parser parse;
+        parse.current_line = current_line;
+        parse.current_line_no = current_line_no;
+        parse.translator(lex.tokenizer());
+
+        ++current_line_no;
     }
-
-    // Throw error if the file can't be opened.
-    else
-        Pastel::errors::open_file(filename);
-
-    // Close the file
-    file.close();
 }
+
+// void run(const std::string& filename)
+// {
+//     std::fstream file;
+
+//     // Open the file
+//     file.open(filename);
+
+//     // Interpret the file line by line
+//     if (file)
+//     {
+//         int current_line_no = 1;
+//         std::string current_line;
+
+//         while (std::getline(file, current_line))
+//         {
+//             Pastel::lexer lex;
+//             lex.current_line = current_line;
+//             lex.current_line_no = current_line_no;
+
+//             Pastel::parser parse;
+//             parse.current_line = current_line;
+//             parse.current_line_no = current_line_no;
+//             parse.translator(lex.tokenizer());
+
+//             ++current_line_no;
+//         }
+//     }
+
+//     // Throw error if the file can't be opened.
+//     else
+//         Pastel::errors::open_file(filename);
+
+//     // Close the file
+//     file.close();
+// }

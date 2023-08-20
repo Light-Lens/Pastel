@@ -7,7 +7,11 @@ namespace Pastel
     class lexer
     {
     public:
-        std::vector<Tokens::Token> tokenizer(const std::string& current_line, const int& current_line_no);
+        std::string current_line;
+        int current_line_no;
+
+    public:
+        std::vector<Tokens::Token> tokenizer();
 
     private:
         bool is_keyword(const std::string& str);
