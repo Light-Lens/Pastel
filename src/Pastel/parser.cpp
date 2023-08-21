@@ -35,74 +35,35 @@ namespace Pastel
         if (tok[start_index].name != "include" && tok[start_index].name != "import")
             return;
 
-        std::map<std::vector<token_type>, std::vector<std::string>> grammar {
-            {
-                {token_type::STRING},
-                {""}
-            },
-            {
-                {token_type::OPERATOR, token_type::IDENTIFIER, token_type::OPERATOR},
-                {"<", "", ">"}
-            },
-            {
-                {token_type::OPERATOR, token_type::IDENTIFIER, token_type::SYMBOL, token_type::IDENTIFIER, token_type::OPERATOR},
-                {"<", "", ".", "" ">"}
-            }
-        };
+        // std::map<std::vector<token_type>, std::vector<std::string>> grammar {
+        //     {
+        //         {token_type::STRING},
+        //         {""}
+        //     },
+        //     {
+        //         {token_type::OPERATOR, token_type::IDENTIFIER, token_type::OPERATOR},
+        //         {"<", "", ">"}
+        //     },
+        //     {
+        //         {token_type::OPERATOR, token_type::IDENTIFIER, token_type::SYMBOL, token_type::IDENTIFIER, token_type::OPERATOR},
+        //         {"<", "", ".", "" ">"}
+        //     }
+        // };
 
-        translation.push_back("#include");
+        // translation.push_back("#include");
 
         // for (int i = (start_index+1); i < tok.size(); i++)
         // {
-        //     for (const auto& entry : grammar)
-        //     {
-        //         const std::vector<token_type>& type = entry.first;
-        //         const std::vector<std::string>& value = entry.second;
+        //     std::cout << tok[i].name << std::endl;
+            // for (const auto& entry : grammar)
+            // {
+            //     const std::vector<token_type>& type = entry.first;
+            //     const std::vector<std::string>& value = entry.second;
 
-        //         // for (int j = 0; j < type.size(); j++)
-        //         // {
-        //         //     if ((tok[i].type == type[j]))
-        //         //     {
-        //         //         std::cout << value[j] << std::endl;
-        //         //         // if (utils::is_empty(value[j]) || tok[i].name == value[j])
-        //         //         // {
-        //         //         //     std::cout << tok[i].name << std::endl;
-        //         //         // }
-
-        //         //         // if (utils::is_empty(value[j]) || tok[i].name == value[j])
-        //         //         // translation.push_back(tok[i].name);
-
-        //         //         // else if (tok[i].name == value[j])
-        //         //         //     translation.push_back(tok[i].name);
-        //         //         break;
-        //         //     }
-        //         // }
-
-        //         // for (const auto& id : value)
-        //         // {
-        //         // }
-        //     }
-        // }
-
-        // if (tok[start_index + 1].type == STRING)
-        //     translation.push_back(tok[start_index + 1].name);
-
-        // else if (tok[start_index + 1].type == OPERATOR && tok[start_index + 2].type == IDENTIFIER && tok[start_index + 3].type == OPERATOR)
-        // {
-        //     if (tok[start_index + 1].name == "<" && tok[start_index + 2].name == ">")
-        //     {
-        //         std::string includedPath = tok[start_index + 1].name + tok[start_index + 2].name + tok[start_index + 3].name;
-        //         translation.push_back(includedPath);
-        //     }
-        // }
-
-        // else if (tok[start_index + 1].type == OPERATOR && tok[start_index + 2].type == IDENTIFIER && tok[start_index + 3].type == SYMBOL && tok[start_index + 4].type == IDENTIFIER && tok[start_index + 5].type == OPERATOR)
-        // {
-        //     if (tok[start_index + 1].name == "<" && tok[start_index + 3].name == "." && tok[start_index + 5].name == ">")
-        //     {
-        //         std::string includedPath = tok[start_index + 1].name + tok[start_index + 2].name + tok[start_index + 3].name + tok[start_index + 4].name + tok[start_index + 5].name;
-        //         translation.push_back(includedPath);
-        //     }
+            //     // for (const auto& id : value)
+            //     // {
+            //     // }
+            // }
         // }
     }
 }

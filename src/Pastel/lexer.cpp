@@ -129,7 +129,14 @@ namespace Pastel
 
     bool lexer::is_keyword(const std::string& str)
     {
-        for (int i = 0; i < (keywords->size() / keywords[0].size()); i++)
+        // for (int i = 0; i < (keywords->size() / keywords[0].size()); i++)
+        // {
+        //     std::cout << "[" << str << ", " << keywords[i] << "]\n";
+        //     if (str == keywords[i])
+        //         return true;
+        // }
+
+        for (int i = 0; i < keywords->size(); i++)
         {
             if (str == keywords[i])
                 return true;
