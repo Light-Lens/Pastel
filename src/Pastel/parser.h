@@ -17,5 +17,6 @@ namespace Pastel
     private:
         void handle_comments(const token& tok);
         void handle_includes(const std::vector<token>& tok, const int& start_index);
+        void handle_variables(const std::vector<token>& tok, const int& start_index);
     };
 }

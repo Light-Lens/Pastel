@@ -16,7 +16,10 @@ namespace Pastel
             tok += current_line[i];
 
             if (utils::is_empty(tok))
+            {
+                tokens.push_back({token_type::EMPTY, tok});
                 tok.clear();
+            }
 
             else if (current_line[i] == '/' && current_line[i+1] == '/')
             {
@@ -129,14 +132,7 @@ namespace Pastel
 
     bool lexer::is_keyword(const std::string& str)
     {
-        // for (int i = 0; i < (keywords->size() / keywords[0].size()); i++)
-        // {
-        //     std::cout << "[" << str << ", " << keywords[i] << "]\n";
-        //     if (str == keywords[i])
-        //         return true;
-        // }
-
-        for (int i = 0; i < keywords->size(); i++)
+        for (int i = 0; i < keywords.size(); i++)
         {
             if (str == keywords[i])
                 return true;

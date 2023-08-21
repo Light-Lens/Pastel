@@ -12,15 +12,21 @@ namespace Pastel
         if (num_tokens == 0)
             return;
 
-        const token& first_token = tokens[0];
-        if (first_token.type == COMMENT)
-            handle_comments(first_token);
+        for (int i = 0; i < tokens.size(); i++)
+        {
+            const token_type type = tokens[i].type;
+            const std::string name = tokens[i].name;
 
-        else if (first_token.type == KEYWORD)
-            handle_includes(tokens, 0);
+            if (type == COMMENT)
+            {
+                translation.push_back(name);
+                break;
+            }
 
-        else if (first_token.type == SYMBOL)
-            handle_includes(tokens, 1);
+            else if (type == KEYWORD)
+                handle_includes(tokens, i);
+                handle_variables(tokens, i);
+        }
 
         for (int i = 0; i < translation.size(); i++)
             std::cout << translation[i] << std::endl;
@@ -31,7 +37,7 @@ namespace Pastel
         translation.push_back(tok.name);
     }
 
-    // handle the usage of include any external lib.
+    // handle includes of external lib.
     void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
     {
         if (tok[start_index].name != "include" && tok[start_index].name != "import")
@@ -41,6 +47,19 @@ namespace Pastel
         for (int i = start_index+1; i < tok.size(); i++)
             include_path += tok[i].name;
 
-        translation.push_back("#include " + include_path);
+        translation.push_back("#include" + include_path);
+    }
+
+    // handle variables
+    void parser::handle_variables(const std::vector<token>& tok, const int& start_index)
+    {
+        if (tok[start_index].name != "include" && tok[start_index].name != "import")
+            return;
+
+        std::string include_path;
+        for (int i = start_index+1; i < tok.size(); i++)
+            include_path += tok[i].name;
+
+        translation.push_back("#include" + include_path);
     }
 }

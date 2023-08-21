@@ -2,7 +2,7 @@
 include "iostream"
 include <spdlog/spdlog.h>
 
-import <SDL/SDL2>
+import   <SDL/SDL2>
 #include <windows.h>
 
 std::cout << "Hello world!" << std::endl;
@@ -16,7 +16,7 @@ char a = '\n';
 shout(a);
 shout(num, "Hello world!");
 
-fun test(int a, int b)
+fun test(int a, int b) //add 2 numbers
 {
 
     return a+b;
