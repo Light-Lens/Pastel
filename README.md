@@ -11,18 +11,18 @@ Pastel is officially untested on other development environments whilst we focus 
 
 Start by cloning the repository with `git clone https://github.com/Light-Lens/Pastel`.
 
+### :gear: Instructions
+#### :bangbang: Requirments
+You need to install the following on your machine.
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Mingw-w64](https://github.com/niXman/mingw-builds-binaries/releases)
+
 ## :pencil: The Plan
 The plan for Pastel is to develop a highly efficient and user-friendly superset of C++ that can handle a wide range of applications, from graphical user interfaces (GUIs) to game rendering. The language is designed to be intuitive and easy to use, allowing developers to create applications quickly and efficiently.
 
 As an open-source project, it aims to leverage the latest advancements in programming technology and optimize the language for readability. The ultimate goal is to provide a comprehensive and accessible solution for developers, enabling them to create a wide range of applications with ease and efficiency. Whether it's developing a complex game or creating a simple graphical user interface, Pastel is designed to be a versatile and collaborative solution for all your programming needs.
 
 ---
-
-## :gear: Instructions
-### :bangbang: Requirments
-You need to install the following on your machine.
-- [Visual Studio Code](https://code.visualstudio.com/)
-- [Mingw-w64](https://github.com/niXman/mingw-builds-binaries/releases)
 
 ## :warning: License and Contributions
 All code is licensed under an MIT license. This allows you to re-use the code freely, remixed in both commercial and non-commercial projects. The only requirement is to include the same license when distributing.
