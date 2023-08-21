@@ -34,7 +34,7 @@ namespace Pastel
         if (tok[start_index].name != "include" && tok[start_index].name != "import")
             return;
 
-        std::map<std::vector<token_type>, std::vector<std::string>> cases {
+        std::map<std::vector<token_type>, std::vector<std::string>> grammar {
             {
                 {token_type::STRING},
                 {""}
@@ -51,7 +51,7 @@ namespace Pastel
 
         translation.push_back("#include");
 
-        for (const auto& entry : cases)
+        for (const auto& entry : grammar)
         {
             const std::vector<token_type>& type = entry.first;
             const std::vector<std::string>& value = entry.second;
