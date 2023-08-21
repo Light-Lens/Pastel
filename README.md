@@ -11,7 +11,9 @@ Pastel is a cutting-edge programming language that brings together the best feat
 ## :toolbox: Getting Started
 Pastel is officially untested on other development environments whilst we focus on a Windows build, but you can modify it to work cross-platform. Visual Studio Code is recommended for development.
 
-Start by cloning the repository with `git clone https://github.com/Light-Lens/Pastel`.
+Start by cloning the repository with `git clone --recursive https://github.com/Light-Lens/Pastel`.
+
+If the repository was cloned non-recursively previously, use `git submodule update --init` to clone the necessary submodules.
 
 ## :gear: Instructions
 ### :bangbang: Requirments
