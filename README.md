@@ -13,8 +13,8 @@ Pastel is officially untested on other development environments whilst we focus 
 
 Start by cloning the repository with `git clone https://github.com/Light-Lens/Pastel`.
 
-### :gear: Instructions
-#### :bangbang: Requirments
+## :gear: Instructions
+### :bangbang: Requirments
 You need to install the following on your machine.
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [Mingw-w64](https://github.com/niXman/mingw-builds-binaries/releases)
