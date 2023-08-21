@@ -12,57 +12,78 @@ namespace Pastel
 
         const token& first_token = tokens[0];
         if (first_token.type == COMMENT)
-            handle_comment(first_token);
+            handle_comments(first_token);
 
-        // if (tokens[0].type == COMMENT)
-        //     translation.push_back(tokens[0].name);
+        else if (first_token.type == KEYWORD)
+            handle_includes(tokens, 0);
 
-        // else if (tokens[0].type == KEYWORD && tokens[1].type == STRING)
+        else if (first_token.type == SYMBOL)
+            handle_includes(tokens, 1);
+
+        // for (int i = 0; i < translation.size(); i++)
+        //     std::cout << translation[i] << std::endl;
+    }
+
+    void parser::handle_comments(const token& tok)
+    {
+        translation.push_back(tok.name);
+    }
+
+    void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
+    {
+        if (tok[start_index].name != "include" && tok[start_index].name != "import")
+            return;
+
+        std::map<std::vector<token_type>, std::vector<std::string>> cases {
+            {
+                {token_type::STRING},
+                {""}
+            },
+            {
+                {token_type::OPERATOR, token_type::IDENTIFIER, token_type::OPERATOR},
+                {"<", "", ">"}
+            },
+            {
+                {token_type::OPERATOR, token_type::IDENTIFIER, token_type::SYMBOL, token_type::IDENTIFIER, token_type::OPERATOR},
+                {"<", "", ".", "" ">"}
+            }
+        };
+
+        translation.push_back("#include");
+
+        for (const auto& entry : cases)
+        {
+            const std::vector<token_type>& type = entry.first;
+            const std::vector<std::string>& value = entry.second;
+
+            for (const auto& token : type)
+            {
+            }
+
+            for (const auto& id : value)
+            {
+            }
+        }
+
+        // if (tok[start_index + 1].type == STRING)
+        //     translation.push_back(tok[start_index + 1].name);
+
+        // else if (tok[start_index + 1].type == OPERATOR && tok[start_index + 2].type == IDENTIFIER && tok[start_index + 3].type == OPERATOR)
         // {
-        //     if (tokens[0].name == "include")
+        //     if (tok[start_index + 1].name == "<" && tok[start_index + 2].name == ">")
         //     {
-        //         translation.push_back("#include");
-        //         translation.push_back(tokens[1].name);
+        //         std::string includedPath = tok[start_index + 1].name + tok[start_index + 2].name + tok[start_index + 3].name;
+        //         translation.push_back(includedPath);
         //     }
         // }
 
-        // else if (tokens[0].type == SYMBOL && tokens[1].type == KEYWORD && tokens[2].type == STRING)
+        // else if (tok[start_index + 1].type == OPERATOR && tok[start_index + 2].type == IDENTIFIER && tok[start_index + 3].type == SYMBOL && tok[start_index + 4].type == IDENTIFIER && tok[start_index + 5].type == OPERATOR)
         // {
-        //     if (tokens[0].name == "#" && tokens[1].name == "include")
+        //     if (tok[start_index + 1].name == "<" && tok[start_index + 3].name == "." && tok[start_index + 5].name == ">")
         //     {
-        //         translation.push_back("#include");
-        //         translation.push_back(tokens[2].name);
+        //         std::string includedPath = tok[start_index + 1].name + tok[start_index + 2].name + tok[start_index + 3].name + tok[start_index + 4].name + tok[start_index + 5].name;
+        //         translation.push_back(includedPath);
         //     }
         // }
-
-        // else if (tokens[0].type == KEYWORD && tokens[1].type == OPERATOR && tokens[2].type == IDENTIFIER && tokens[3].type == OPERATOR)
-        // {
-        //     if (tokens[0].name == "include" && tokens[1].name == "<" && tokens[3].name == ">")
-        //     {
-        //         translation.push_back("#include");
-        //         translation.push_back(tokens[2].name + tokens[3].name + tokens[4].name);
-        //     }
-        // }
-
-        // else if (tokens[0].type == SYMBOL && tokens[1].type == KEYWORD && tokens[2].type == OPERATOR && tokens[3].type == IDENTIFIER && tokens[4].type == SYMBOL &&  tokens[5].type == IDENTIFIER && tokens[6].type == OPERATOR)
-        // {
-        //     if (tokens[0].name == "#" && tokens[1].name == "include" && tokens[2].name == "<" && tokens[6].name == ">")
-        //     {
-        //         translation.push_back("#include");
-        //         translation.push_back(tokens[2].name + tokens[3].name + tokens[4].name + tokens[5].name + tokens[6].name);
-        //     }
-        // }
-
-        // else if (tokens[0].type == SYMBOL && tokens[1].type == KEYWORD && tokens[2].type == OPERATOR && tokens[3].type == IDENTIFIER && tokens[4].type == OPERATOR)
-        // {
-        //     if (tokens[0].name == "#" && tokens[1].name == "include" && tokens[2].name == "<" && tokens[4].name == ">")
-        //     {
-        //         translation.push_back("#include");
-        //         translation.push_back(tokens[2].name + tokens[3].name + tokens[4].name);
-        //     }
-        // }
-
-        for (int i = 0; i < translation.size(); i++)
-            std::cout << translation[i] << std::endl;
     }
 }

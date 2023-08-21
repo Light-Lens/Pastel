@@ -13,5 +13,9 @@ namespace Pastel
 
     public:
         void translator(const std::vector<token>& tokens);
+
+    private:
+        void handle_comments(const token& tok);
+        void handle_includes(const std::vector<token>& tok, const int& start_index);
     };
 }

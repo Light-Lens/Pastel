@@ -5,6 +5,7 @@ namespace Pastel
 {
     const std::string keywords[] = {
         "include",
+        "import",
         "let",
         "auto",
         "const",
@@ -13,6 +14,8 @@ namespace Pastel
         "int",
         "float",
         "bool",
+        "true",
+        "false",
         "double",
         "return",
         "fun",
