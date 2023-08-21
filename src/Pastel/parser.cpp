@@ -1,4 +1,5 @@
 #include "../pastelpch.h"
+#include "../utils/strings.h"
 #include "tokens.h"
 #include "parser.h"
 
@@ -51,19 +52,37 @@ namespace Pastel
 
         translation.push_back("#include");
 
-        for (const auto& entry : grammar)
-        {
-            const std::vector<token_type>& type = entry.first;
-            const std::vector<std::string>& value = entry.second;
+        // for (int i = (start_index+1); i < tok.size(); i++)
+        // {
+        //     for (const auto& entry : grammar)
+        //     {
+        //         const std::vector<token_type>& type = entry.first;
+        //         const std::vector<std::string>& value = entry.second;
 
-            for (const auto& token : type)
-            {
-            }
+        //         // for (int j = 0; j < type.size(); j++)
+        //         // {
+        //         //     if ((tok[i].type == type[j]))
+        //         //     {
+        //         //         std::cout << value[j] << std::endl;
+        //         //         // if (utils::is_empty(value[j]) || tok[i].name == value[j])
+        //         //         // {
+        //         //         //     std::cout << tok[i].name << std::endl;
+        //         //         // }
 
-            for (const auto& id : value)
-            {
-            }
-        }
+        //         //         // if (utils::is_empty(value[j]) || tok[i].name == value[j])
+        //         //         // translation.push_back(tok[i].name);
+
+        //         //         // else if (tok[i].name == value[j])
+        //         //         //     translation.push_back(tok[i].name);
+        //         //         break;
+        //         //     }
+        //         // }
+
+        //         // for (const auto& id : value)
+        //         // {
+        //         // }
+        //     }
+        // }
 
         // if (tok[start_index + 1].type == STRING)
         //     translation.push_back(tok[start_index + 1].name);
