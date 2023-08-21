@@ -5,6 +5,7 @@
 
 namespace Pastel
 {
+    // translate pastel code to c++ code
     void parser::translator(const std::vector<token>& tokens)
     {
         const size_t num_tokens = tokens.size();
@@ -30,6 +31,7 @@ namespace Pastel
         translation.push_back(tok.name);
     }
 
+    // handle the usage of include any external lib.
     void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
     {
         if (tok[start_index].name != "include" && tok[start_index].name != "import")
@@ -39,36 +41,6 @@ namespace Pastel
         for (int i = start_index+1; i < tok.size(); i++)
             include_path += tok[i].name;
 
-        translation.push_back("#include");
-        translation.push_back(include_path);
-
-        // std::map<std::vector<token_type>, std::vector<std::string>> grammar {
-        //     {
-        //         {token_type::STRING},
-        //         {""}
-        //     },
-        //     {
-        //         {token_type::OPERATOR, token_type::IDENTIFIER, token_type::OPERATOR},
-        //         {"<", "", ">"}
-        //     },
-        //     {
-        //         {token_type::OPERATOR, token_type::IDENTIFIER, token_type::SYMBOL, token_type::IDENTIFIER, token_type::OPERATOR},
-        //         {"<", "", ".", "" ">"}
-        //     }
-        // };
-
-        // for (int i = (start_index+1); i < tok.size(); i++)
-        // {
-        //     std::cout << tok[i].name << std::endl;
-            // for (const auto& entry : grammar)
-            // {
-            //     const std::vector<token_type>& type = entry.first;
-            //     const std::vector<std::string>& value = entry.second;
-
-            //     // for (const auto& id : value)
-            //     // {
-            //     // }
-            // }
-        // }
+        translation.push_back("#include " + include_path);
     }
 }
