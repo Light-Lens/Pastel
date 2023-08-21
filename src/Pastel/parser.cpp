@@ -21,8 +21,8 @@ namespace Pastel
         else if (first_token.type == SYMBOL)
             handle_includes(tokens, 1);
 
-        // for (int i = 0; i < translation.size(); i++)
-        //     std::cout << translation[i] << std::endl;
+        for (int i = 0; i < translation.size(); i++)
+            std::cout << translation[i] << std::endl;
     }
 
     void parser::handle_comments(const token& tok)
@@ -34,6 +34,13 @@ namespace Pastel
     {
         if (tok[start_index].name != "include" && tok[start_index].name != "import")
             return;
+
+        std::string include_path;
+        for (int i = start_index+1; i < tok.size(); i++)
+            include_path += tok[i].name;
+
+        translation.push_back("#include");
+        translation.push_back(include_path);
 
         // std::map<std::vector<token_type>, std::vector<std::string>> grammar {
         //     {
@@ -49,8 +56,6 @@ namespace Pastel
         //         {"<", "", ".", "" ">"}
         //     }
         // };
-
-        // translation.push_back("#include");
 
         // for (int i = (start_index+1); i < tok.size(); i++)
         // {

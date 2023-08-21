@@ -1,7 +1,9 @@
 // this is just a test comment
 include "iostream"
-#include "windows.h"
-import "SDL/SDL2"
+include <spdlog/spdlog.h>
+
+import <SDL/SDL2>
+#include <windows.h>
 
 std::cout << "Hello world!" << std::endl;
 shout("Hello world!");
