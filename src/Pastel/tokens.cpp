@@ -14,7 +14,6 @@ namespace Pastel
     * @param vectors An initializer list of vectors to be concatenated.
     * @return A new vector containing elements from all input vectors.
     */
-    // source: ChatGPT
     template <typename T>
     std::vector<T> concatenate_vectors(const std::initializer_list<std::vector<T>>& vectors)
     {
@@ -24,39 +23,6 @@ namespace Pastel
 
         return result;
     }
-
-    // const std::string keywords[] = {
-    //     "include",
-    //     "import",
-    //     "using",
-    //     "let",
-    //     "auto",
-    //     "const",
-    //     "var",
-    //     "str",
-    //     "string",
-    //     "char",
-    //     "int",
-    //     "float",
-    //     "bool",
-    //     "double",
-    //     "true",
-    //     "false",
-    //     "fun",
-    //     "void",
-    //     "struct",
-    //     "class",
-    //     "namespace",
-    //     "enum",
-    //     "return",
-    //     "break",
-    //     "continue",
-    //     "switch",
-    //     "case",
-    //     "if",
-    //     "elif",
-    //     "else"
-    // };
 
     const std::vector<std::string> include_keywords = {
         "include",

@@ -24,8 +24,9 @@ namespace Pastel
             }
 
             else if (type == KEYWORD)
+            {
                 handle_includes(tokens, i);
-                handle_variables(tokens, i);
+            }
         }
 
         for (int i = 0; i < translation.size(); i++)
@@ -40,7 +41,7 @@ namespace Pastel
     // handle includes of external lib.
     void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
     {
-        if (tok[start_index].name != "include" && tok[start_index].name != "import")
+        if (!contains_keywords(tok, include_keywords))
             return;
 
         std::string include_path;
@@ -50,16 +51,26 @@ namespace Pastel
         translation.push_back("#include" + include_path);
     }
 
-    // handle variables
-    void parser::handle_variables(const std::vector<token>& tok, const int& start_index)
+    /**
+    * Check if any of the specified keywords exist in the given tokens.
+    * 
+    * This function searches through the token names to determine if any of the provided
+    * keywords are present.
+    * 
+    * @param tokens The list of tokens to search through.
+    * @param list_of_keywords The keywords to search for.
+    * @return True if any of the keywords are found in the tokens, false otherwise.
+    */
+    bool parser::contains_keywords(const std::vector<token>& tokens, const std::vector<std::string>& list_of_keywords)
     {
-        if (tok[start_index].name != "include" && tok[start_index].name != "import")
-            return;
+        for (const auto& keyword : list_of_keywords)
+        {
+            // Check if any token's name matches the current keyword using std::any_of,
+            // if a match is found, return true; otherwise, continue checking with the next keyword.
+            if (std::any_of(tokens.begin(), tokens.end(), [&keyword](const token& t) { return t.name == keyword; }))
+                return true;
+        }
 
-        std::string include_path;
-        for (int i = start_index+1; i < tok.size(); i++)
-            include_path += tok[i].name;
-
-        translation.push_back("#include" + include_path);
+        return false;
     }
 }
