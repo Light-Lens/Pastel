@@ -1,11 +1,6 @@
 # Pastel
 Pastel is a cutting-edge programming language that brings together the best features of Python and C# to C++ powerful environment. Designed for ease of use and raw power, Pastel is written in C++ and is perfect for both beginners and experienced programmers alike as it is built on top of C++ becoming a superset of C++. Its syntax is primarily inspired by Python and C#, making it familiar and intuitive for those with a background in either language. With a strong focus on development, Pastel is well on its way in development. It's a simple, yet powerful and detailed, offering a versatile platform for building complex applications.
 
-> Note:
-> ---
->
-> Our development is ongoing and making great progress, but some features may not be fully implemented yet. If you encounter any bugs or have any suggestions, please feel free to open an _issue_ or submit a _pull request_. Your contributions are greatly appreciated!
-
 ***
 
 ## :toolbox: Getting Started
@@ -33,4 +28,4 @@ As an open-source project, it aims to leverage the latest advancements in progra
 ## :warning: License and Contributions
 All code is licensed under an MIT license. This allows you to re-use the code freely, remixed in both commercial and non-commercial projects. The only requirement is to include the same license when distributing.
 
-We welcome any contributions to Pastel Programming Language development through pull requests on GitHub. Most of our active development is in the master branch, so we prefer to take pull requests there (particularly for new features).
+We welcome any contributions to Pastel Programming Language development through pull requests on GitHub. Our development is ongoing and making great progress, but some features may not be fully implemented yet. If you encounter any bugs or have any suggestions, please feel free to open an _issue_ or submit a _pull request_. Your contributions are greatly appreciated! Most of our active development is in the master branch, so we prefer to take pull requests there.
