@@ -8,21 +8,7 @@ namespace Pastel
     parser::parser(const std::vector< std::vector<token> >& tokenized_code)
     {
         for (int i = 0; i < tokenized_code.size(); i++)
-        {
-            // for (int j = 0; j < tokenized_code[i].size(); j++)
-            // {
-            //     // for (int i = 0; i < code.size(); i++)
-            //     // {
-            //     //     current_line = code[i];
-            //     //     current_line_no = i+1;
-            //     //     tokenized_code.push_back(tokenizer());
-            //     // }
-            //     std::cout << tokenized_code[i][j].name << std::endl;
-            // }
-
-
             translator(tokenized_code[i]);
-        }
 
         for (int i = 0; i < translation.size(); i++)
         {
