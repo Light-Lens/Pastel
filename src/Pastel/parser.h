@@ -4,17 +4,16 @@ namespace Pastel
 {
     class parser
     {
+    private:
+        // std::string current_line;
+        // int current_line_no;
+        std::vector< std::vector<std::string> > translation;
+
     public:
-        std::string current_line;
-        int current_line_no;
+        parser(const std::vector< std::vector<token> >& tokenized_code);
 
     private:
-        std::vector<std::string> translation;
-
-    public:
         void translator(const std::vector<token>& tokens);
-
-    private:
         void handle_comments(const token& tok);
         void handle_includes(const std::vector<token>& tok, const int& start_index);
         bool contains_keywords(const std::vector<token>& tokens, const std::vector<std::string>& list_of_keywords);

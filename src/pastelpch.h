@@ -7,6 +7,5 @@
 #include <vector>
 #include <cctype>
 #include <string>
-#include <map>
 
 #include <windows.h>

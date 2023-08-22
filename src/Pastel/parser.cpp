@@ -5,6 +5,34 @@
 
 namespace Pastel
 {
+    parser::parser(const std::vector< std::vector<token> >& tokenized_code)
+    {
+        for (int i = 0; i < tokenized_code.size(); i++)
+        {
+            // for (int j = 0; j < tokenized_code[i].size(); j++)
+            // {
+            //     // for (int i = 0; i < code.size(); i++)
+            //     // {
+            //     //     current_line = code[i];
+            //     //     current_line_no = i+1;
+            //     //     tokenized_code.push_back(tokenizer());
+            //     // }
+            //     std::cout << tokenized_code[i][j].name << std::endl;
+            // }
+
+
+            translator(tokenized_code[i]);
+        }
+
+        for (int i = 0; i < translation.size(); i++)
+        {
+            for (int j = 0; j < translation[i].size(); j++)
+                std::cout << translation[i][j] << std::endl;
+
+            std::cout << std::endl;
+        }
+    }
+
     // translate pastel code to c++ code
     void parser::translator(const std::vector<token>& tokens)
     {
@@ -19,7 +47,7 @@ namespace Pastel
 
             if (type == COMMENT)
             {
-                translation.push_back(name);
+                translation.push_back({name});
                 break;
             }
 
@@ -28,14 +56,11 @@ namespace Pastel
                 handle_includes(tokens, i);
             }
         }
-
-        for (int i = 0; i < translation.size(); i++)
-            std::cout << translation[i] << std::endl;
     }
 
     void parser::handle_comments(const token& tok)
     {
-        translation.push_back(tok.name);
+        translation.push_back({tok.name});
     }
 
     // handle includes of external lib.
@@ -48,7 +73,7 @@ namespace Pastel
         for (int i = start_index+1; i < tok.size(); i++)
             include_path += tok[i].name;
 
-        translation.push_back("#include" + include_path);
+        translation.push_back({"#include", include_path});
     }
 
     /**

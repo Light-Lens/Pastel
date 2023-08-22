@@ -6,6 +6,16 @@
 
 namespace Pastel
 {
+    lexer::lexer(const std::vector<std::string>& code)
+    {
+        for (int i = 0; i < code.size(); i++)
+        {
+            current_line = code[i];
+            current_line_no = i+1;
+            tokenized_code.push_back(tokenizer());
+        }
+    }
+
     std::vector<token> lexer::tokenizer()
     {
         std::string tok;
@@ -17,7 +27,7 @@ namespace Pastel
 
             if (utils::is_empty(tok))
             {
-                tokens.push_back({token_type::EMPTY, tok});
+                // tokens.push_back({token_type::EMPTY, tok});
                 tok.clear();
             }
 

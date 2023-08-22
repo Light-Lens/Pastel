@@ -28,20 +28,29 @@ void install_lib(const std::string& lib_name)
 // then translate the each line to c++ syntax using the parser.
 void run(std::fstream& file)
 {
-    int current_line_no = 1;
     std::string current_line;
+    std::vector<std::string> code;
 
     while (std::getline(file, current_line))
-    {
-        Pastel::lexer lex;
-        lex.current_line = current_line;
-        lex.current_line_no = current_line_no;
+        code.push_back(current_line);
 
-        Pastel::parser parse;
-        parse.current_line = current_line;
-        parse.current_line_no = current_line_no;
-        parse.translator(lex.tokenizer());
+    Pastel::lexer lex(code);
+    Pastel::parser parse(lex.tokenized_code);
+    // parse.current_line = current_line;
+    // parse.current_line_no = current_line_no;
+    // parse.translator(lex.tokenizer());
 
-        ++current_line_no;
-    }
+    // while (std::getline(file, current_line))
+    // {
+    //     Pastel::lexer lex;
+    //     lex.current_line = current_line;
+    //     lex.current_line_no = current_line_no;
+
+    //     Pastel::parser parse;
+    //     parse.current_line = current_line;
+    //     parse.current_line_no = current_line_no;
+    //     parse.translator(lex.tokenizer());
+
+    //     ++current_line_no;
+    // }
 }

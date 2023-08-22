@@ -1,5 +1,5 @@
 # Pastel
-Pastel is a cutting-edge programming language that brings together the best features of Python and C# to C++ powerful environment. Designed for ease of use and raw power, Pastel is written in C++ and is perfect for both beginners and experienced programmers alike as it is built on top of C++ becoming a superset of C++. Its syntax is primarily inspired by Python and C#, making it familiar and intuitive for those with a background in either language. With a strong focus on development, Pastel is well on its way in development. It's a simple, yet powerful and detailed, offering a versatile platform for building complex applications.
+Pastel is a cutting-edge programming language that brings together the best features of Python and C# to C++ powerful environment. Designed for ease of use and raw power, Pastel is written in C++ and is perfect for both beginners and experienced programmers alike as it is built on top of C++ becoming a superset of C++. Its syntax is primarily inspired by Python and C#, making it familiar and intuitive for those with a background in either language. With a strong focus on development, Pastel is well on its way in development. It is simple, yet powerful, and detailed, offering a versatile platform for building complex applications.
 
 ***
 
