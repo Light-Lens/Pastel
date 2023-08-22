@@ -24,33 +24,30 @@ void install_lib(const std::string& lib_name)
     utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
 }
 
-// tokenizse the file line by line.
-// then translate the each line to c++ syntax using the parser.
-void run(std::fstream& file)
+// push each line into a string vector then close the file
+// throw error if the file can't be opened.
+std::vector<std::string> load_file(std::string& filename)
 {
+    std::fstream file;
     std::string current_line;
     std::vector<std::string> code;
+
+    file.open(filename);
+
+    if (!file)
+        Pastel::errors::open_file(filename);
 
     while (std::getline(file, current_line))
         code.push_back(current_line);
 
+    file.close();
+    return code;
+}
+
+// tokenizse the file line by line.
+// then translate the each line to c++ syntax using the parser.
+void run(std::vector<std::string> code)
+{
     Pastel::lexer lex(code);
     Pastel::parser parse(lex.tokenized_code);
-    // parse.current_line = current_line;
-    // parse.current_line_no = current_line_no;
-    // parse.translator(lex.tokenizer());
-
-    // while (std::getline(file, current_line))
-    // {
-    //     Pastel::lexer lex;
-    //     lex.current_line = current_line;
-    //     lex.current_line_no = current_line_no;
-
-    //     Pastel::parser parse;
-    //     parse.current_line = current_line;
-    //     parse.current_line_no = current_line_no;
-    //     parse.translator(lex.tokenizer());
-
-    //     ++current_line_no;
-    // }
 }

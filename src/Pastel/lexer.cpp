@@ -119,7 +119,10 @@ namespace Pastel
                 tok += current_line[i];
 
                 if (i >= current_line.size())
-                    errors::runtime("Unterminated char at line " + std::to_string(current_line_no));
+                {
+                    std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
+                    errors::lexical(error_detail, current_line_no);
+                }
 
                 if (current_line[i] == '"')
                     tokens.push_back({token_type::STRING, tok});

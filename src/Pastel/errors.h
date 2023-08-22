@@ -11,9 +11,10 @@ namespace Pastel
 {
     namespace errors
     {
-        void errors(const std::string& details);
-        void throw_error(const std::string& details);
-        void runtime(const std::string& details);
+        void errors(const std::string& name_of_error, const std::string& details, const int& line_no);
+        void throw_error(const std::string& details, const int& line_no=-1, const std::string& name_of_error="");
+        void runtime(const std::string& details, const int& line_no);
+        void lexical(const std::string& details, const int& line_no);
         void open_file(const std::string& filename);
     }
 }

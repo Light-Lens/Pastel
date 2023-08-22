@@ -1,5 +1,6 @@
 #include "../pastelpch.h"
 #include "../utils/strings.h"
+#include "errors.h"
 #include "tokens.h"
 #include "parser.h"
 
@@ -8,7 +9,10 @@ namespace Pastel
     parser::parser(const std::vector< std::vector<token> >& tokenized_code)
     {
         for (int i = 0; i < tokenized_code.size(); i++)
+        {
             translator(tokenized_code[i]);
+            ++current_line_no;
+        }
 
         for (int i = 0; i < translation.size(); i++)
         {
@@ -57,7 +61,31 @@ namespace Pastel
 
         std::string include_path;
         for (int i = start_index+1; i < tok.size(); i++)
-            include_path += tok[i].name;
+        {
+            if (tok[i].type == STRING)
+            {
+                include_path += tok[i].name;
+                break;
+            }
+
+            else if (tok[i].type == OPERATOR && tok[i].name == "<")
+            {
+                include_path += tok[i].name;
+
+                i++;
+                while (i < tok.size() && tok[i].name != ">")
+                {
+                    include_path += tok[i].name;
+                    i++;
+                }
+
+                include_path += tok[i].name;
+                break;
+            }
+
+            else
+                errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line_no);
+        }
 
         translation.push_back({"#include", include_path});
     }

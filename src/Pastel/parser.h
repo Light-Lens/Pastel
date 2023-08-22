@@ -6,7 +6,7 @@ namespace Pastel
     {
     private:
         // std::string current_line;
-        // int current_line_no;
+        int current_line_no = 1;
         std::vector< std::vector<std::string> > translation;
 
     public:
