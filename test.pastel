@@ -4,9 +4,10 @@
 //import 2
 
 include "iostream"
-include <spdlog/spdlog.h>
+include <<spdlog/spdlog.h
+include <<spdlog/spdlog.h>
 
-import   <SDL/SDL2>
+import   <SDL/SDL2>>
 #include <windows.h>
 
 std::cout << "Hello world!" << std::endl;

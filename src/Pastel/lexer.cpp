@@ -110,17 +110,25 @@ namespace Pastel
                 char str_char_symbol = tok[0];
 
                 i++;
-                while (i < current_line.size() && current_line[i] != str_char_symbol)
+                if (i < current_line.size())
                 {
+                    while (i < current_line.size() && current_line[i] != str_char_symbol)
+                    {
+                        tok += current_line[i];
+                        i++;
+                    }
                     tok += current_line[i];
-                    i++;
+
+                    if (i >= current_line.size())
+                    {
+                        std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
+                        errors::lexical(error_detail, current_line_no);
+                    }
                 }
-
-                tok += current_line[i];
-
-                if (i >= current_line.size())
+                
+                else
                 {
-                    std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
+                    std::string error_detail = "unexpected end of tokens after " + std::string(1, str_char_symbol);
                     errors::lexical(error_detail, current_line_no);
                 }
 

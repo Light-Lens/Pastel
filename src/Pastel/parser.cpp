@@ -73,13 +73,57 @@ namespace Pastel
                 include_path += tok[i].name;
 
                 i++;
-                while (i < tok.size() && tok[i].name != ">")
+                if (i >= tok.size())
+                    errors::runtime("unexpected end of tokens after '<'", current_line_no);
+
+                while (i < tok.size())
                 {
                     include_path += tok[i].name;
                     i++;
                 }
 
-                include_path += tok[i].name;
+                std::cout << "[" << include_path << ", " << i << " : " << tok.size() << "]\n";
+                if (i >= tok.size())
+                {
+                    // std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
+                    // errors::lexical(error_detail, current_line_no);
+                }
+
+
+
+
+
+
+                // if (i < tok.size())
+                // {
+                //     while (tok[i].name != ">")
+                //     {
+                //         if (i < tok.size())
+                //         {
+                //             include_path += tok[i].name;
+                //             i++;
+                //         }
+
+                //         else
+                //         {
+                //             errors::runtime("unexpected end of tokens", current_line_no);
+                //             break;
+                //         }
+                //     }
+
+                //     if (i < tok.size() && tok[i].name == ">")
+                //     {
+                //         include_path += tok[i].name;
+                //         i++;
+                //     }
+
+                //     else
+                //         errors::runtime("missing closing '>'", current_line_no);
+                // }
+
+                // else
+                //     errors::runtime("unexpected end of tokens after '<'", current_line_no);
+
                 break;
             }
 
