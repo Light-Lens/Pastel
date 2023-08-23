@@ -122,14 +122,14 @@ namespace Pastel
                     if (i >= current_line.size())
                     {
                         std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
-                        errors::lexical(error_detail, current_line_no);
+                        errors::lexical(current_line, error_detail, current_line_no);
                     }
                 }
                 
                 else
                 {
                     std::string error_detail = "unexpected end of tokens after " + std::string(1, str_char_symbol);
-                    errors::lexical(error_detail, current_line_no);
+                    errors::lexical(current_line, error_detail, current_line_no);
                 }
 
                 if (current_line[i] == '"')

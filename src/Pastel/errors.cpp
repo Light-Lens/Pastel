@@ -32,7 +32,7 @@ namespace Pastel
 {
     namespace errors
     {
-        void errors(const std::string& name_of_error, const std::string& details, const int& line_no)
+        void errors(const std::string& details, const int& line_no, const std::string& name_of_error)
         {
             WORD color = console::get_console_color();
 
@@ -55,26 +55,32 @@ namespace Pastel
             std::cout << details << std::endl;
         }
 
-        void throw_error(const std::string& details, const int& line_no, const std::string& name_of_error)
+        void throw_error(const std::string& name_of_error, const std::string& line, const std::string& details, const int& line_no)
         {
-            errors(name_of_error, details, line_no);
+            errors(details, line_no, name_of_error);
             exit(0);
         }
 
-        void runtime(const std::string& details, const int& line_no)
+        void runtime(const std::string& details, const std::string& line, const int& line_no)
         {
-            throw_error(details, line_no, "runtime");
+            throw_error("runtime", line, details, line_no);
         }
 
-        void lexical(const std::string& details, const int& line_no)
+        void lexical(const std::string& details, const std::string& line, const int& line_no)
         {
-            throw_error(details, line_no, "lexical");
+            throw_error("lexical", line, details, line_no);
+        }
+
+        void fatal(const std::string& details, const std::string& line, const int& line_no)
+        {
+            throw_error("fatal", line, details, line_no);
         }
 
         // Cannot open file.
         void open_file(const std::string& filename)
         {
-            throw_error(filename + ": No such file or directory.");
+            errors(filename + ": No such file or directory.", -1, "");
+            exit(0);
         }
     }
 }

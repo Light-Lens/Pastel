@@ -5,8 +5,8 @@ namespace Pastel
     class parser
     {
     private:
-        // std::string current_line;
         int current_line_no = 1;
+        std::string current_line;
         std::vector< std::vector<std::string> > translation;
 
     public:
