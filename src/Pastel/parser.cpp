@@ -15,13 +15,13 @@ namespace Pastel
             ++current_line_no;
         }
 
-        // for (int i = 0; i < translation.size(); i++)
-        // {
-        //     for (int j = 0; j < translation[i].size(); j++)
-        //         std::cout << translation[i][j] << std::endl;
+        for (int i = 0; i < translation.size(); i++)
+        {
+            for (int j = 0; j < translation[i].size(); j++)
+                std::cout << translation[i][j] << std::endl;
 
-            // std::cout << std::endl;
-        // }
+            std::cout << std::endl;
+        }
     }
 
     // translate pastel code to c++ code
@@ -70,29 +70,25 @@ namespace Pastel
                     errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
 
 
-
-                bool has_closing_char_encountered = false;
-                while (i < tok.size())
+                while (i < tok.size() && tok[i].name != ">")
                 {
-                    if (tok[i].name == "<" || has_closing_char_encountered)
-                        errors::fatal("invalid argument", current_line, current_line_no);
-
-                    // if (tok[i].name == "<")
-                    //     errors::fatal("invalid argument", current_line, current_line_no);
-
-                    if (tok[i].name == ">" && !has_closing_char_encountered)
-                        has_closing_char_encountered = true;
+                    if (tok[i].name == "<")
+                        errors::fatal("unexpected restart of tokens after '<'", current_line, current_line_no);
 
                     include_path += tok[i].name;
                     i++;
                 }
 
-                include_path += tok[i].name;
-
-
-
                 if (i >= tok.size() || tok[i].name != ">")
                     errors::runtime("unexpected end of tokens, missing closing '>'", current_line, current_line_no);
+
+
+                // Move to the next token after '>'
+                include_path += tok[i].name;
+                i++;
+                if (i < tok.size())
+                    errors::runtime("unexpected token after '>'", current_line, current_line_no);
+
 
                 break;
             }
