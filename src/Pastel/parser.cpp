@@ -41,10 +41,12 @@ namespace Pastel
                 break;
             }
 
-            std::cout << "[" << name << "]\n";
+            else if (type == KEYWORD)
+            {
+                if (contains_keywords(tokens, include_keywords))
+                    handle_includes(tokens, i);
+            }
         }
-
-        std::cout << std::endl;
 
         // for (int i = 0; i < tokens.size(); i++)
         // {
@@ -62,11 +64,6 @@ namespace Pastel
         //         handle_includes(tokens, i);
         //     }
         // }
-    }
-
-    void parser::handle_comments(const token& tok)
-    {
-        translation.push_back({tok.name});
     }
 
     // handle includes of external lib.

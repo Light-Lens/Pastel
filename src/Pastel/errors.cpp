@@ -36,24 +36,53 @@ namespace Pastel
         {
             WORD color = console::get_console_color();
 
-
-            if (line_no >= 0)
-            {
-                console::set_console_color(0xF);
-                std::cout << "at line " + std::to_string(line_no) + ": ";
-            }
-
+            console::set_console_color(0xF);
+            std::cout << "at line " + std::to_string(line_no) + ": ";
 
             console::set_console_color(12);
-            if (!utils::is_empty(name_of_error))
-                std::cout << name_of_error << " ";
-
-            std::cout << "error:\n";
-
+            std::cout << name_of_error << " error:\n";
 
             console::set_console_color(color);
             std::cout << details << std::endl;
         }
+
+        void errors(const std::string& details, const std::string& name_of_error)
+        {
+            WORD color = console::get_console_color();
+
+            console::set_console_color(12);
+            std::cout << name_of_error << " error:\n";
+
+            console::set_console_color(color);
+            std::cout << details << std::endl;
+        }
+
+        void errors(const std::string& details, const int& line_no)
+        {
+            WORD color = console::get_console_color();
+
+            console::set_console_color(0xF);
+            std::cout << "at line " + std::to_string(line_no) + ": ";
+
+            console::set_console_color(12);
+            std::cout << "error:\n";
+
+            console::set_console_color(color);
+            std::cout << details << std::endl;
+        }
+
+        void errors(const std::string& details)
+        {
+            WORD color = console::get_console_color();
+
+            console::set_console_color(12);
+            std::cout << "error:\n";
+
+            console::set_console_color(color);
+            std::cout << details << std::endl;
+        }
+
+
 
         void throw_error(const std::string& name_of_error, const std::string& line, const std::string& details, const int& line_no)
         {
@@ -86,7 +115,7 @@ namespace Pastel
         // Cannot open file.
         void open_file(const std::string& filename)
         {
-            errors(filename + ": No such file or directory.", -1, "");
+            errors(filename + ": No such file or directory.");
             exit(0);
         }
     }
