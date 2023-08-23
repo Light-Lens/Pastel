@@ -51,53 +51,93 @@ namespace Pastel
     }
 
     // handle includes of external lib.
-    void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
+    // void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
+    void parser::handle_includes(const std::vector<token>& tok, int& start_index)
     {
+        start_index++;
         std::string include_path;
-        for (int i = start_index+1; i < tok.size(); i++)
+
+        if (tok[start_index].type == STRING)
+            include_path += tok[start_index].name;
+
+        else if (tok[start_index].type == OPERATOR && tok[start_index].name == "<")
         {
-            if (tok[i].type == STRING)
+            include_path += tok[start_index].name;
+            start_index++;
+            if (start_index >= tok.size())
+                errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
+
+
+            while (start_index < tok.size() && tok[start_index].name != ">")
             {
-                include_path += tok[i].name;
-                break;
+                if (tok[start_index].name == "<")
+                    errors::fatal("unexpected restart of tokens after '<'", current_line, current_line_no);
+
+                include_path += tok[start_index].name;
+                start_index++;
             }
 
-            else if (tok[i].type == OPERATOR && tok[i].name == "<")
-            {
-                include_path += tok[i].name;
-                i++;
-                if (i >= tok.size())
-                    errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
+            if (start_index >= tok.size() || tok[start_index].name != ">")
+                errors::runtime("unexpected end of tokens, missing closing '>'", current_line, current_line_no);
 
 
-                while (i < tok.size() && tok[i].name != ">")
-                {
-                    if (tok[i].name == "<")
-                        errors::fatal("unexpected restart of tokens after '<'", current_line, current_line_no);
-
-                    include_path += tok[i].name;
-                    i++;
-                }
-
-                if (i >= tok.size() || tok[i].name != ">")
-                    errors::runtime("unexpected end of tokens, missing closing '>'", current_line, current_line_no);
-
-
-                // Move to the next token after '>'
-                include_path += tok[i].name;
-                i++;
-                if (i < tok.size())
-                    errors::runtime("unexpected token after '>'", current_line, current_line_no);
-
-
-                break;
-            }
-
-            else
-                errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
+            // Move to the next token after '>'
+            include_path += tok[start_index].name;
+            start_index++;
+            if (start_index < tok.size())
+                errors::runtime("unexpected token after '>'", current_line, current_line_no);
         }
 
+        else
+            errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
+
         translation.push_back({"#include", include_path});
+
+        // std::string include_path;
+        // for (int i = start_index+1; i < tok.size(); i++)
+        // {
+        //     if (tok[i].type == STRING)
+        //     {
+        //         include_path += tok[i].name;
+        //         break;
+        //     }
+
+        //     else if (tok[i].type == OPERATOR && tok[i].name == "<")
+        //     {
+        //         include_path += tok[i].name;
+        //         i++;
+        //         if (i >= tok.size())
+        //             errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
+
+
+        //         while (i < tok.size() && tok[i].name != ">")
+        //         {
+        //             if (tok[i].name == "<")
+        //                 errors::fatal("unexpected restart of tokens after '<'", current_line, current_line_no);
+
+        //             include_path += tok[i].name;
+        //             i++;
+        //         }
+
+        //         if (i >= tok.size() || tok[i].name != ">")
+        //             errors::runtime("unexpected end of tokens, missing closing '>'", current_line, current_line_no);
+
+
+        //         // Move to the next token after '>'
+        //         include_path += tok[i].name;
+        //         i++;
+        //         if (i < tok.size())
+        //             errors::runtime("unexpected token after '>'", current_line, current_line_no);
+
+
+        //         break;
+        //     }
+
+        //     else
+        //         errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
+        // }
+
+        // translation.push_back({"#include", include_path});
     }
 
     /**
