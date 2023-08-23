@@ -50,24 +50,40 @@ namespace Pastel
         }
     }
 
-    // handle includes of external lib.
+    /**
+    * Handles processing of '#include' directives in the token stream.
+    *
+    * This function extracts the include path from the tokens and adds it to the translation.
+    *
+    * @param tok The vector of tokens to be processed.
+    * @param start_index The index of the starting token for processing.
+    */
     // void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
     void parser::handle_includes(const std::vector<token>& tok, int& start_index)
     {
+        // increment the start index to move to the next token
         start_index++;
+
+        // store the include path
         std::string include_path;
 
+        // check if the starting token is a string literal
         if (tok[start_index].type == STRING)
             include_path += tok[start_index].name;
 
+        // check if the starting token is an opening angle bracket '<'
         else if (tok[start_index].type == OPERATOR && tok[start_index].name == "<")
         {
             include_path += tok[start_index].name;
+
+            // move to the next token
             start_index++;
+
+            // check for unexpected end of tokens
             if (start_index >= tok.size())
                 errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
 
-
+            // process tokens until closing angle bracket '>' is encountered
             while (start_index < tok.size() && tok[start_index].name != ">")
             {
                 if (tok[start_index].name == "<")
@@ -77,20 +93,24 @@ namespace Pastel
                 start_index++;
             }
 
+            // check for missing closing angle bracket '>'
             if (start_index >= tok.size() || tok[start_index].name != ">")
                 errors::runtime("unexpected end of tokens, missing closing '>'", current_line, current_line_no);
 
-
-            // Move to the next token after '>'
+            // move to the next token after '>'
             include_path += tok[start_index].name;
             start_index++;
+
+            // check for unexpected token after '#include' directive
             if (start_index < tok.size())
                 errors::runtime("unexpected token after '>'", current_line, current_line_no);
         }
 
+        // handle the case when the token type is not recognized
         else
             errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
 
+        // add the include path to the translation
         translation.push_back({"#include", include_path});
 
         // std::string include_path;
