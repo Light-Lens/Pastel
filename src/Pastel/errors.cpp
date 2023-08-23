@@ -91,8 +91,9 @@ namespace Pastel
             errors(details, line_no, name_of_error);
 
             console::set_console_color(12);
-            std::cout << "-> " << line << std::endl;
+            std::cout << "-> ";
             console::set_console_color(color);
+            std::cout << line << std::endl;
 
             exit(0);
         }

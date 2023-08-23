@@ -6,10 +6,11 @@
 
 namespace Pastel
 {
-    parser::parser(const std::vector< std::vector<token> >& tokenized_code)
+    parser::parser(const std::vector< std::vector<token> >& tokenized_code, const std::vector<std::string>& original_lines)
     {
         for (int i = 0; i < tokenized_code.size(); i++)
         {
+            current_line = original_lines[i];
             translator(tokenized_code[i]);
             ++current_line_no;
         }
@@ -78,34 +79,6 @@ namespace Pastel
             if (tok[i].type == STRING)
             {
                 include_path += tok[i].name;
-                break;
-            }
-
-            else if (tok[i].type == OPERATOR && tok[i].name == "<")
-            {
-                include_path += tok[i].name;
-
-                i++;
-                if (i >= tok.size())
-                    errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
-
-                while (i < tok.size())
-                {
-                    if (tok[i].name == "<")
-                        errors::fatal("invalid argument", current_line, current_line_no);
-
-                    include_path += tok[i].name;
-                    i++;
-                }
-
-                // if (i < tok.size() && tok[i].name == ">")
-                // {
-                    // include_path += tok[i].name;
-                // }
-
-                // else
-                //     errors::runtime("missing closing '>'", current_line_no);
-
                 break;
             }
 

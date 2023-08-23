@@ -10,7 +10,7 @@ namespace Pastel
         std::vector< std::vector<std::string> > translation;
 
     public:
-        parser(const std::vector< std::vector<token> >& tokenized_code);
+        parser(const std::vector< std::vector<token> >& tokenized_code, const std::vector<std::string>& original_lines);
 
     private:
         void translator(const std::vector<token>& tokens);
