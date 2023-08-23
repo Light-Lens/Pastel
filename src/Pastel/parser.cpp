@@ -14,13 +14,13 @@ namespace Pastel
             ++current_line_no;
         }
 
-        for (int i = 0; i < translation.size(); i++)
-        {
-            for (int j = 0; j < translation[i].size(); j++)
-                std::cout << translation[i][j] << std::endl;
+        // for (int i = 0; i < translation.size(); i++)
+        // {
+        //     for (int j = 0; j < translation[i].size(); j++)
+        //         std::cout << translation[i][j] << std::endl;
 
-            std::cout << std::endl;
-        }
+            // std::cout << std::endl;
+        // }
     }
 
     // translate pastel code to c++ code
@@ -30,7 +30,7 @@ namespace Pastel
         if (num_tokens == 0)
             return;
 
-        for (int i = 0; i < tokens.size(); i++)
+        for (int i = 0; i < num_tokens; i++)
         {
             const token_type type = tokens[i].type;
             const std::string name = tokens[i].name;
@@ -41,11 +41,27 @@ namespace Pastel
                 break;
             }
 
-            else if (type == KEYWORD)
-            {
-                handle_includes(tokens, i);
-            }
+            std::cout << "[" << name << "]\n";
         }
+
+        std::cout << std::endl;
+
+        // for (int i = 0; i < tokens.size(); i++)
+        // {
+        //     const token_type type = tokens[i].type;
+        //     const std::string name = tokens[i].name;
+
+        //     if (type == COMMENT)
+        //     {
+        //         translation.push_back({name});
+        //         break;
+        //     }
+
+        //     else if (type == KEYWORD)
+        //     {
+        //         handle_includes(tokens, i);
+        //     }
+        // }
     }
 
     void parser::handle_comments(const token& tok)
@@ -74,12 +90,12 @@ namespace Pastel
 
                 i++;
                 if (i >= tok.size())
-                    errors::runtime("unexpected end of tokens after '<'", current_line_no);
+                    errors::runtime("unexpected end of tokens after '<'", current_line, current_line_no);
 
                 while (i < tok.size())
                 {
                     if (tok[i].name == "<")
-                        errors::fatal("invalid argument", current_line_no);
+                        errors::fatal("invalid argument", current_line, current_line_no);
 
                     include_path += tok[i].name;
                     i++;
@@ -97,7 +113,7 @@ namespace Pastel
             }
 
             else
-                errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line_no);
+                errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
         }
 
         translation.push_back({"#include", include_path});

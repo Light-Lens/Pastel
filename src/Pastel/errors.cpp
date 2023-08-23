@@ -57,7 +57,14 @@ namespace Pastel
 
         void throw_error(const std::string& name_of_error, const std::string& line, const std::string& details, const int& line_no)
         {
+            WORD color = console::get_console_color();
+
             errors(details, line_no, name_of_error);
+
+            console::set_console_color(12);
+            std::cout << "-> " << line << std::endl;
+            console::set_console_color(color);
+
             exit(0);
         }
 
