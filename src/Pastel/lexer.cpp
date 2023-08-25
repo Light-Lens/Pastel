@@ -26,10 +26,7 @@ namespace Pastel
             tok += current_line[i];
 
             if (utils::is_empty(tok))
-            {
-                // tokens.push_back({token_type::EMPTY, tok});
                 tok.clear();
-            }
 
             else if (current_line[i] == '/' && current_line[i+1] == '/')
             {

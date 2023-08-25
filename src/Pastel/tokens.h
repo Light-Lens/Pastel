@@ -4,8 +4,7 @@ namespace Pastel
 {
     enum token_type
     {
-        EMPTY = 0,
-        UNKNOWN,
+        UNKNOWN = 0,
         COMMENT,
         SYMBOL,
         STRING,
