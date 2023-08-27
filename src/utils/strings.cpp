@@ -1,4 +1,4 @@
-#include "../pastelpch.h"
+#include "pastelpch.h"
 #include "strings.h"
 
 namespace utils
@@ -17,9 +17,16 @@ namespace utils
     std::string lowercase(std::string str)
     {
         for (char& c : str)
-        {
             c = std::tolower(c);
-        }
+
+        return str;
+    }
+
+    std::string replace_last(std::string str, const std::string& str_to_be_replaced, const std::string& str_to_be_replaced_with)
+    {
+        size_t pos = str.rfind(str_to_be_replaced);  // Find the last occurrence of the search string
+        if (pos != std::string::npos)
+            str.replace(pos, str_to_be_replaced.length(), str_to_be_replaced_with);  // Replace the found occurrence
 
         return str;
     }

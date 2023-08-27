@@ -1,5 +1,5 @@
-#include "../pastelpch.h"
-#include "../utils/strings.h"
+#include "pastelpch.h"
+#include "utils/strings.h"
 #include "errors.h"
 
 namespace console

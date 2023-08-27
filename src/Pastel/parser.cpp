@@ -1,4 +1,5 @@
-#include "../pastelpch.h"
+#include "pastelpch.h"
+#include "utils/strings.h"
 #include "errors.h"
 #include "tokens.h"
 #include "parser.h"
@@ -57,7 +58,6 @@ namespace Pastel
     * @param tok The vector of tokens to be processed.
     * @param start_index The index of the starting token for processing.
     */
-    // void parser::handle_includes(const std::vector<token>& tok, const int& start_index)
     void parser::handle_includes(const std::vector<token>& tok, int& start_index)
     {
         // increment the start index to move to the next token
@@ -110,6 +110,13 @@ namespace Pastel
             errors::runtime("#include expects \"FILENAME\" or <FILENAME>", current_line, current_line_no);
 
         // add the include path to the translation
+        //TODO: If include_path endswith ".pastel", replace it with ".h".
+        if (utils::endswith(include_path, ".pastel\""))
+            include_path = utils::replace_last(include_path, ".pastel\"", ".h\"");
+
+        else if (utils::endswith(include_path, ".pastel>"))
+            include_path = utils::replace_last(include_path, ".pastel>", ".h>");
+
         translation.push_back({"#include", include_path});
     }
 

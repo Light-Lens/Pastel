@@ -1,4 +1,4 @@
-#include "../pastelpch.h"
+#include "pastelpch.h"
 #include "fileio.h"
 
 namespace utils

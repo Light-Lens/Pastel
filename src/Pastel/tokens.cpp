@@ -1,4 +1,4 @@
-#include "../pastelpch.h"
+#include "pastelpch.h"
 #include "tokens.h"
 
 namespace Pastel
@@ -25,24 +25,23 @@ namespace Pastel
     }
 
     const std::vector<std::string> include_keywords = {
-        "include",
+        "using",
         "import",
-        "using"
+        "include"
     };
 
     const std::vector<std::string> variable_keywords = {
         "let",
-        "auto",
-        "const",
         "var",
         "str",
-        "string",
-        "char",
         "int",
-        "float",
+        "auto",
         "bool",
+        "char",
+        "float",
+        "const",
         "double",
-        "enum"
+        "string"
     };
 
     const std::vector<std::string> boolean_keywords = {
@@ -53,20 +52,21 @@ namespace Pastel
     const std::vector<std::string> container_keywords = {
         "fun",
         "void",
-        "struct",
+        "enum",
         "class",
+        "struct",
         "namespace"
     };
 
     const std::vector<std::string> control_flow_keywords = {
-        "return",
-        "break",
-        "continue",
-        "switch",
-        "case",
         "if",
         "elif",
-        "else"
+        "else",
+        "case",
+        "break",
+        "return",
+        "switch",
+        "continue"
     };
 
     const std::vector<std::string> keywords = concatenate_vectors({

@@ -1,7 +1,7 @@
-#include "../pastelpch.h"
+#include "pastelpch.h"
 #include "lexer.h"
 
-#include "../utils/strings.h"
+#include "utils/strings.h"
 #include "errors.h"
 
 namespace Pastel

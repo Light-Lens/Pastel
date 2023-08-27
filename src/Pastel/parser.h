@@ -14,7 +14,6 @@ namespace Pastel
 
     private:
         void translator(const std::vector<token>& tokens);
-        // void handle_includes(const std::vector<token>& tok, const int& start_index);
         void handle_includes(const std::vector<token>& tok, int& start_index);
         bool contains_keywords(const std::vector<token>& tokens, const std::vector<std::string>& list_of_keywords);
     };
