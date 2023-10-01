@@ -14,7 +14,7 @@ if not exist src/pastelpch.h.gch (
     g++ src/pastelpch.h
 )
 
-if not exist bin/ (
+if not exist bin (
     mkdir bin
 )
 

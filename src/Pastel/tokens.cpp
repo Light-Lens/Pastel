@@ -54,6 +54,8 @@ namespace Pastel
         "void",
         "enum",
         "class",
+        "public"
+        "private",
         "struct",
         "namespace"
     };
@@ -66,7 +68,10 @@ namespace Pastel
         "break",
         "return",
         "switch",
-        "continue"
+        "continue",
+        "for",
+        "while",
+        "pass"
     };
 
     const std::vector<std::string> keywords = concatenate_vectors({
