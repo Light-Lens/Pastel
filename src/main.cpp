@@ -8,7 +8,12 @@ int main(int argc, char const *argv[])
     {
         // init_folders();
         //TODO: Add a help message argument.
-        if (arg == "init")
+        if (arg == "help")
+        {
+            // print help message.
+        }
+
+        else if (arg == "init")
             init_folders();
 
         else if (arg == "install")
@@ -16,6 +21,9 @@ int main(int argc, char const *argv[])
 
         else if (utils::endswith(arg, ".pastel"))
             run(load_file(arg));
+
+        else
+            Pastel::errors::errors(arg + ": Please type 'pastel help' for more information", "Unrecognized argument");
     }
 
     return 0;
