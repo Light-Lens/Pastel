@@ -1,7 +1,7 @@
 #pragma once
 
-#include "utils/strings.h"
-#include "utils/fileio.h"
+#include "utils/Utils/strings.h"
+#include "utils/FileIO/fileio.h"
 #include "Pastel/errors.h"
 #include "Pastel/lexer.h"
 #include "Pastel/parser.h"
