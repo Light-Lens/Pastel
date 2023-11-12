@@ -18,4 +18,4 @@ if not exist bin (
     mkdir bin
 )
 
-g++ src/*.cpp src/utils/*.cpp src/Pastel/*.cpp -Isrc/ -o bin/pastel.exe
+g++ src/*.cpp src/utils/Argparse/*.cpp src/utils/FileIO/*.cpp src/utils/Utils/*.cpp src/Pastel/*.cpp -Isrc/ -o bin/pastel.exe
