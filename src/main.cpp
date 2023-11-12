@@ -6,7 +6,8 @@ int main(int argc, char const *argv[])
     std::string arg = utils::lowercase(argv[1]);
     if (argc > 1)
     {
-        init_folders();
+        // init_folders();
+        //TODO: Add a help message argument.
         if (arg == "init")
             init_folders();
 
