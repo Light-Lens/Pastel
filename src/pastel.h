@@ -2,9 +2,9 @@
 
 #include "utils/Utils/strings.h"
 #include "utils/FileIO/fileio.h"
-#include "Pastel/errors.h"
-#include "Pastel/lexer.h"
-#include "Pastel/parser.h"
+#include "Pastel/Errors/errors.h"
+#include "Pastel/Lexer/lexer.h"
+#include "Pastel/Parser/parser.h"
 
 // initialize .pastel folder with it's subdirectories
 // this folder will contain content such as external installable libraries, building scripts and files

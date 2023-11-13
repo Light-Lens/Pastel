@@ -2,7 +2,7 @@
 #include "lexer.h"
 
 #include "utils/Utils/strings.h"
-#include "errors.h"
+#include "Pastel/Errors/errors.h"
 
 namespace Pastel
 {

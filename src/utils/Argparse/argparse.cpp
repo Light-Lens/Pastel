@@ -1,6 +1,6 @@
 #include "pastelpch.h"
 #include "argparse.h"
-#include "Pastel/errors.h"
+#include "Pastel/Errors/errors.h"
 #include "utils/Utils/strings.h"
 #include "utils/Utils/array.h"
 #include "utils/Utils/math.h"

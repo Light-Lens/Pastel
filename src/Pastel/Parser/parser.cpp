@@ -1,7 +1,7 @@
 #include "pastelpch.h"
 #include "utils/Utils/strings.h"
-#include "errors.h"
-#include "tokens.h"
+#include "Pastel/Errors/errors.h"
+#include "Pastel/tokens.h"
 #include "parser.h"
 
 namespace Pastel
