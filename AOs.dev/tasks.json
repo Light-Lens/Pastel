@@ -2,13 +2,13 @@
   "tasks": {
     "build": {
       "description": "Build Pastel",
-      "command": "call build.bat",
+      "command": "call scripts\\build.py",
       "update_build_number": true,
       "call_other_tasks": []
     },
     "sbuild": {
       "description": "Build Pastel silently",
-      "command": "call build.bat",
+      "command": "call scripts\\build.py",
       "update_build_number": false,
       "call_other_tasks": []
     }
