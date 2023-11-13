@@ -8,5 +8,6 @@
 #include <vector>
 #include <cctype>
 #include <string>
+#include <cmath>
 
 #include <windows.h>

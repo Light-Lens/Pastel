@@ -111,11 +111,11 @@ namespace Pastel
 
         // add the include path to the translation
         //TODO: If include_path endswith ".pastel", replace it with ".h".
-        if (utils::endswith(include_path, ".pastel\""))
-            include_path = utils::replace_last(include_path, ".pastel\"", ".h\"");
+        if (utils::strings::endswith(include_path, ".pastel\""))
+            include_path = utils::strings::replace_last(include_path, ".pastel\"", ".h\"");
 
-        else if (utils::endswith(include_path, ".pastel>"))
-            include_path = utils::replace_last(include_path, ".pastel>", ".h>");
+        else if (utils::strings::endswith(include_path, ".pastel>"))
+            include_path = utils::strings::replace_last(include_path, ".pastel>", ".h>");
 
         translation.push_back({"#include", include_path});
     }

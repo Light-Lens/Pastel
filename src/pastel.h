@@ -21,12 +21,13 @@ void init_folders()
 // for eg, SDL2 or spdlog, it will automatically be included during compilation
 void install_lib(const std::string& lib_name)
 {
-    utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
+    if (!utils::is_empty(lib_name))
+        utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
 }
 
 // push each line into a string vector then close the file
 // throw error if the file can't be opened.
-std::vector<std::string> load_file(std::string& filename)
+std::vector<std::string> load_file(const std::string& filename)
 {
     std::fstream file;
     std::string current_line;
@@ -46,7 +47,7 @@ std::vector<std::string> load_file(std::string& filename)
 
 // tokenizse the file line by line.
 // then translate the each line to c++ syntax using the parser.
-void run(std::vector<std::string> code)
+void run(const std::vector<std::string>& code)
 {
     Pastel::lexer lex(code);
     Pastel::parser parse(lex.tokenized_code, code);
