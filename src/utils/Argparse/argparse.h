@@ -21,13 +21,35 @@ public:
         }
     };
 
+    struct parsed_argument
+    {
+        std::vector<std::string> names;
+        std::string value;
+        bool is_flag;
+        bool requierd;
+        std::string known_type;
+
+        parsed_argument(std::vector<std::string> names, std::string value, bool is_flag, bool required, std::string known_type="known")
+        {
+            this->names = names;
+            this->value = value;
+            this->is_flag = is_flag;
+            this->requierd = requierd;
+            this->known_type = known_type;
+        }
+    };
+
 public:
     argparse(const std::string& name, const std::string& description, const std::function<void(std::string)>& error_func = nullptr);
     void add(const std::vector<std::string>& cmd_names, const std::string& help_message, const std::string& default_value = "", const bool& is_flag = false, const bool& required = false);
+    std::vector<parsed_argument> parse(const std::vector<std::string>& args);
 
 private:
     std::string name = "";
     std::string description = "";
     std::vector<argument> arguments;
     std::function<void(std::string)> error_func;
+
+private:
+    argument find_matching_argument(std::string arg);
 };
