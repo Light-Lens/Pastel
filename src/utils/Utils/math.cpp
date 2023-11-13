@@ -3,8 +3,12 @@
 
 namespace utils
 {
-    int math::calculate_padding(const int& count, const int& max_padding_len)
+    int math::calculate_padding(const size_t& count, const size_t& max_padding_len)
     {
-        return std::max(max_padding_len - static_cast<int>(log10(count)), 0);
+        size_t column_width = 0;
+        for (size_t i = 0; i < count; i += 2)
+            column_width = std::max(column_width, max_padding_len);
+
+        return column_width;
     }
 }

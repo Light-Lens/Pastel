@@ -47,7 +47,7 @@ namespace utils
         std::vector<parsed_argument> parse(const std::vector<std::string>& args);
         void print_help();
         void print_help(const argument& details);
-        void get_help(std::vector<std::string> cmd_names);
+        void get_help(const std::vector<std::string>& cmd_names);
 
     private:
         std::string name = "";
@@ -56,6 +56,6 @@ namespace utils
         std::function<void(std::string)> error_func;
 
     private:
-        argument find_matching_argument(std::string arg);
+        argument find_matching_argument(const std::string& arg);
     };
 }

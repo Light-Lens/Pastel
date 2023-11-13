@@ -10,4 +10,9 @@ namespace utils
 
         return result;
     }
+
+    bool array::is_empty(const std::vector<std::string>& arr)
+    {
+        return arr.empty() || arr.size() == 0;
+    }
 }

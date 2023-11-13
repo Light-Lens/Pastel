@@ -20,7 +20,7 @@ namespace utils
         this->arguments.emplace_back(cmd_names, help_message, default_value, is_flag, required);
     }
 
-    argparse::argument argparse::find_matching_argument(std::string arg)
+    argparse::argument argparse::find_matching_argument(const std::string& arg)
     {
         for (const argument& argu : arguments)
         {
@@ -72,7 +72,7 @@ namespace utils
                         Pastel::errors::errors(args[i], "No argument");
                         return {};
                     }
-                    
+
                     else
                         out = matching_argument.default_value;
                 }
@@ -107,24 +107,30 @@ namespace utils
     void argparse::print_help()
     {
         terminalcolor::print("Name:", 14);
-        std::cout << this->name << std::endl;
+        std::cout << this->name << "\n\n";
 
         terminalcolor::print("Description:", 11);
-        std::cout << this->description << std::endl;
+        std::cout << this->description << "\n\n";
 
         terminalcolor::print("Usage:", 7);
-        std::cout << this->name << " [OPTIONS]" << std::endl;
+        std::cout << this->name << " [OPTIONS]" << "\n\n";
 
         terminalcolor::print("Options:", 13);
-        for (const auto& arg : arguments)
+        for (int i = 0; i < arguments.size(); i++)
         {
+            utils::argparse::argument arg = arguments[i];
+
             std::string arg_name = utils::strings::join(", ", utils::array::reduce(arg.names));
             std::string default_value = (!arg.default_value.empty()) ? " (default: " + arg.default_value + ")" : "";
             std::string is_required = (arg.required) ? " (required: true)" : " (required: false)";
             std::string is_flag = (arg.is_flag) ? " (is flag: true)" : " (is flag: false)";
 
-            std::cout << arg_name << ": " << arg.help << default_value << is_required << is_flag << std::endl;
+            int padding = utils::math::calculate_padding(1);
+            std::cout << std::setw(padding) << std::left << arg_name << "  ";
+            terminalcolor::print(arg.help + default_value + is_required + is_flag, 8);
         }
+
+        std::cout << std::endl;
     }
 
     void argparse::print_help(const argument& details)
@@ -136,15 +142,49 @@ namespace utils
         std::string is_required = details.required ? " (required: true)" : " (required: false)";
 
         terminalcolor::print("Name:", 11);
-        int padding = -utils::math::calculate_padding(1);
-        std::cout << std::setw(padding) << names;
+        int padding = utils::math::calculate_padding(1);
+        std::cout << std::setw(padding) << std::left << names << "  ";
         terminalcolor::print(description + "\n", 8);
 
         terminalcolor::print("Details:", 9);
-        std::cout << names << " [OPTIONS] " << default_value << is_flag << is_required << std::endl;
+        std::cout << names << " [OPTIONS] " << default_value << is_flag << is_required << "\n\n";
     }
 
-    void argparse::get_help(std::vector<std::string> cmd_names)
+    void argparse::get_help(const std::vector<std::string>& cmd_names)
     {
+        const std::vector<std::string> names = utils::array::reduce(cmd_names);
+
+        if (utils::array::is_empty(names))
+        {
+            std::cout << "Type `help <command-name>` for more information on a specific command" << "\n\n";
+
+            for (int i = 0; i < arguments.size(); i++)
+            {
+                utils::argparse::argument detail = arguments[i];
+
+                std::vector<std::string> command_names = detail.names;
+                std::string description = detail.help;
+                int padding = utils::math::calculate_padding(i+1);
+
+                terminalcolor::print(i+1 + ". ", 8, false);
+                std::cout << std::setw(padding) << std::left << utils::strings::join(", ", command_names) << "  ";
+                terminalcolor::print(description, 8);
+            }
+        }
+
+        else
+        {
+            for (const std::string name : names)
+            {
+                argument matching_cmd = find_matching_argument(name);
+                if (matching_cmd.names.empty())
+                {
+                    Pastel::errors::errors("No information for command '" + name + "'");
+                    continue;
+                }
+
+                print_help(matching_cmd);
+            }
+        }
     }
 }

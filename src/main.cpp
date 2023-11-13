@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
     {
         if (std::find(arg.names.begin(), arg.names.end(), "-h") != arg.names.end())
         {
-            // print help message.
+            parser.print_help();
             return 0;
         }
 
