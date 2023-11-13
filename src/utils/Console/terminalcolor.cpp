@@ -12,7 +12,7 @@ namespace utils
     * @param is_newline Creates a newline or doesn't (default=true).
     * @return void
     */
-    void terminalcolor::print(const std::string& message, const WORD& color, const bool& is_newline=true)
+    void terminalcolor::print(const std::string& message, const WORD& color, const bool& is_newline)
     {
         WORD default_color = console::get_console_color();
         console::set_console_color(color);

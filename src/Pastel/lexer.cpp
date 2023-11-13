@@ -25,7 +25,7 @@ namespace Pastel
         {
             tok += current_line[i];
 
-            if (utils::is_empty(tok))
+            if (utils::strings::is_empty(tok))
                 tok.clear();
 
             else if (current_line[i] == '/' && current_line[i+1] == '/')
@@ -161,7 +161,7 @@ namespace Pastel
 
     bool lexer::is_identifier(const std::string& str)
     {
-        if (utils::is_empty(str))
+        if (utils::strings::is_empty(str))
             return false;
 
         for (int i = 0; i < str.size(); i++)
@@ -175,7 +175,7 @@ namespace Pastel
 
     bool lexer::is_int(const std::string& str)
     {
-        if (utils::is_empty(str))
+        if (utils::strings::is_empty(str))
             return false;
 
         for (int i = 0; i < str.size(); i++)
@@ -189,7 +189,7 @@ namespace Pastel
 
     bool lexer::is_float(const std::string& str)
     {
-        if (utils::is_empty(str))
+        if (utils::strings::is_empty(str))
             return false;
 
         int dot_count = 0;

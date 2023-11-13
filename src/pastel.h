@@ -21,7 +21,7 @@ void init_folders()
 // for eg, SDL2 or spdlog, it will automatically be included during compilation
 void install_lib(const std::string& lib_name)
 {
-    if (!utils::is_empty(lib_name))
+    if (!utils::strings::is_empty(lib_name))
         utils::copy_dir(lib_name, ".pastel/vendor/" + lib_name);
 }
 
