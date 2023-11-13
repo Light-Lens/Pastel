@@ -16,3 +16,4 @@ for path, subdirs, files in os.walk("."):
 
 all_src_files = " ".join(cpp_dirs)
 script = f"g++ {all_src_files} -Isrc/ -o bin/pastel.exe"
+os.system(script)
