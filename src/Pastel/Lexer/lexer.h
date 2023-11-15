@@ -22,8 +22,8 @@ namespace Pastel
         bool is_identifier(const std::string& str);
         bool is_int(const std::string& str);
         bool is_float(const std::string& str);
-        bool is_operator(const char& c);
-        bool is_symbol(const char& c);
-        bool is_paren(const char& c);
+        bool is_operator(const std::string& c);
+        bool is_symbol(const std::string& c);
+        bool is_paren(const std::string& c);
     };
 }

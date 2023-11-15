@@ -8,8 +8,8 @@ namespace Pastel
 {
     std::vector<token> lexer::tokenizer()
     {
-        std::string tok;
         std::vector<token> tokens;
+        std::string tok;
 
         for (int i = 0; i < current_line.size(); i++)
         {
@@ -18,35 +18,22 @@ namespace Pastel
             if (utils::strings::is_empty(tok))
                 tok.clear();
 
-            else if (current_line[i] == '/' && current_line[i+1] == '/')
-            {
-                i++;
-                while (i < current_line.size())
-                {
-                    tok += current_line[i];
-                    i++;
-                }
-
-                i--;
-
-                tokens.push_back({token_type::COMMENT, tok});
-                tok.clear();
+            else if (current_line[i] == '#' || (current_line[i] == '/' && current_line[i+1] == '/'))
                 break;
-            }
 
-            else if (is_paren(current_line[i]) && tok.size() == sizeof(current_line[i]))
+            else if (is_paren(tok))
             {
                 tokens.push_back({token_type::PAREN, tok});
                 tok.clear();
             }
 
-            else if (is_symbol(current_line[i]) && tok.size() == sizeof(current_line[i]))
+            else if (is_symbol(tok))
             {
                 tokens.push_back({token_type::SYMBOL, tok});
                 tok.clear();
             }
 
-            else if (is_operator(current_line[i]) && tok.size() == sizeof(current_line[i]))
+            else if (is_operator(tok))
             {
                 tokens.push_back({token_type::OPERATOR, tok});
                 tok.clear();

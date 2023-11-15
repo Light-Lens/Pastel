@@ -69,21 +69,20 @@ namespace Pastel
         return true;
     }
 
-    bool lexer::is_operator(const char& c)
+    bool lexer::is_operator(const std::string& c)
     {
-        return c == '+' || c == '-' || c == '*' || c == '/' || c == '%' ||
-               c == '=' || c == '<' || c == '>' ||
-               c == '!' || c == '&' || c == '|';
+        return c == "+" || c == "-" || c == "*" || c == "/" || c == "%" ||
+               c == "=" || c == "<" || c == ">" ||
+               c == "!" || c == "&" || c == "|";
     }
 
-    bool lexer::is_symbol(const char& c)
+    bool lexer::is_symbol(const std::string& c)
     {
-        return c == ':' || c == '.' || c == ',' || c == ';' ||
-               c == '#' || c == '@';
+        return c == ":" || c == "." || c == "," || c == ";" || c == "@" || c == "$";
     }
 
-    bool lexer::is_paren(const char& c)
+    bool lexer::is_paren(const std::string& c)
     {
-        return c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}';
+        return c == "(" || c == ")" || c == "[" || c == "]" || c == "{" || c == "}";
     }
 }
