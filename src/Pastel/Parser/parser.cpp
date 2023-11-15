@@ -8,20 +8,20 @@ namespace Pastel
 {
     parser::parser(const std::vector< std::vector<token> >& tokenized_code, const std::vector<std::string>& original_lines)
     {
-        // for (int i = 0; i < tokenized_code.size(); i++)
-        // {
-        //     current_line = original_lines[i];
-        //     translator(tokenized_code[i]);
-        //     ++current_line_no;
-        // }
+        for (int i = 0; i < tokenized_code.size(); i++)
+        {
+            current_line = original_lines[i];
+            translator(tokenized_code[i]);
+            ++current_line_no;
+        }
 
-        // for (int i = 0; i < translation.size(); i++)
-        // {
-        //     for (int j = 0; j < translation[i].size(); j++)
-        //         std::cout << translation[i][j] << std::endl;
+        for (int i = 0; i < translation.size(); i++)
+        {
+            for (int j = 0; j < translation[i].size(); j++)
+                std::cout << translation[i][j] << std::endl;
 
-        //     std::cout << std::endl;
-        // }
+            std::cout << std::endl;
+        }
     }
 
     // translate pastel code to c++ code
