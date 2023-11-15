@@ -24,7 +24,7 @@ namespace Pastel
 
         for (int i = 0; i < str.size(); i++)
         {
-            if (!isalpha(str[i]) || str[i] != '_')
+            if (!isdigit(str[i]) && !isalpha(str[i]) && str[i] != '_')
                 return false;
         }
 

@@ -39,26 +39,6 @@ namespace Pastel
                 tok.clear();
             }
 
-            else if (is_identifier(tok))
-            {
-                i++;
-                while (i < current_line.size() && current_line[i] != ' ')
-                {
-                    tok += current_line[i];
-                    i++;
-                }
-
-                i--;
-
-                if (is_keyword(tok))
-                    tokens.push_back({token_type::KEYWORD, tok});
-
-                else if (is_identifier(tok))
-                    tokens.push_back({token_type::IDENTIFIER, tok});
-
-                tok.clear();
-            }
-
             else if (is_float(tok))
             {
                 i++;
@@ -75,6 +55,26 @@ namespace Pastel
 
                 else if (is_float(tok))
                     tokens.push_back({token_type::FLOAT, tok});
+
+                tok.clear();
+            }
+
+            else if (is_identifier(tok))
+            {
+                i++;
+                while (i < current_line.size() && is_identifier(std::string(1, current_line[i])) && current_line[i] != ' ')
+                {
+                    tok += current_line[i];
+                    i++;
+                }
+
+                i--;
+
+                if (is_keyword(tok))
+                    tokens.push_back({token_type::KEYWORD, tok});
+
+                else if (is_identifier(tok))
+                    tokens.push_back({token_type::IDENTIFIER, tok});
 
                 tok.clear();
             }
