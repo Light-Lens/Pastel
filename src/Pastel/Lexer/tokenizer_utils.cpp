@@ -2,6 +2,7 @@
 #include "lexer.h"
 
 #include "utils/Utils/strings.h"
+#include "Pastel/Errors/errors.h"
 
 namespace Pastel
 {
@@ -23,7 +24,7 @@ namespace Pastel
 
         for (int i = 0; i < str.size(); i++)
         {
-            if (!isalpha(str[i]) || str[i] == '_')
+            if (!isalpha(str[i]) || str[i] != '_')
                 return false;
         }
 
@@ -52,16 +53,17 @@ namespace Pastel
         int dot_count = 0;
         for (int i = 0; i < str.size(); i++)
         {
-            if (isdigit(str[i]))
-                continue;
+            if (dot_count >= 2)
+                Pastel::errors::lexical("too many decimal points in number", this->current_line, this->current_line_no);
 
-            else if (str[i] == '.' && dot_count < 2)
+            else if (str[i] == '.')
             {
                 dot_count++;
                 continue;
             }
 
-            return false;
+            else if (!isdigit(str[i]))
+                return false;
         }
 
         return true;
@@ -82,6 +84,6 @@ namespace Pastel
 
     bool lexer::is_paren(const char& c)
     {
-        return c == '(' || c == ')' || c == '[' || c == ']';
+        return c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}';
     }
 }

@@ -8,10 +8,10 @@ namespace utils
         return all_of(str.begin(), str.end(), ::isspace) || str.empty();
     }
 
-    bool strings::endswith(const std::string& sentence, const std::string& what_to_find)
+    bool strings::endswith(const std::string& str, const std::string& suffix)
     {
-        return sentence.length() >= what_to_find.length() &&
-            sentence.compare(sentence.length() - what_to_find.length(), what_to_find.length(), what_to_find) == 0;
+        return str.length() >= suffix.length() &&
+            str.compare(str.length() - suffix.length(), suffix.length(), suffix) == 0;
     }
 
     std::string strings::lowercase(std::string str)
@@ -22,11 +22,11 @@ namespace utils
         return str;
     }
 
-    std::string strings::replace_last(std::string str, const std::string& str_to_be_replaced, const std::string& str_to_be_replaced_with)
+    std::string strings::replace_last(std::string str, const std::string& old_substr, const std::string& new_substr)
     {
-        size_t pos = str.rfind(str_to_be_replaced);  // Find the last occurrence of the search string
+        size_t pos = str.rfind(old_substr);  // Find the last occurrence of the search string
         if (pos != std::string::npos)
-            str.replace(pos, str_to_be_replaced.length(), str_to_be_replaced_with);  // Replace the found occurrence
+            str.replace(pos, old_substr.length(), new_substr);  // Replace the found occurrence
 
         return str;
     }

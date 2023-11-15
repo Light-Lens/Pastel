@@ -112,7 +112,7 @@ namespace Pastel
                         errors::lexical(current_line, error_detail, current_line_no);
                     }
                 }
-                
+
                 else
                 {
                     std::string error_detail = "unexpected end of tokens after " + std::string(1, str_char_symbol);
