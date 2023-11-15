@@ -23,26 +23,26 @@ namespace Pastel
 
             else if (is_paren(tok))
             {
-                tokens.push_back({token_type::PAREN, tok});
+                tokens.push_back({paren_token(tok), tok});
                 tok.clear();
             }
 
             else if (is_symbol(tok))
             {
-                tokens.push_back({token_type::SYMBOL, tok});
+                tokens.push_back({symbol_token(tok), tok});
                 tok.clear();
             }
 
             else if (is_operator(tok))
             {
-                tokens.push_back({token_type::OPERATOR, tok});
+                tokens.push_back({operator_token(tok), tok});
                 tok.clear();
             }
 
             else if (is_identifier(tok))
             {
                 i++;
-                while (i < current_line.size() && is_identifier(std::string(1, current_line[i])))
+                while (i < current_line.size() && current_line[i] != ' ')
                 {
                     tok += current_line[i];
                     i++;
@@ -53,7 +53,7 @@ namespace Pastel
                 if (is_keyword(tok))
                     tokens.push_back({token_type::KEYWORD, tok});
 
-                else
+                else if (is_identifier(tok))
                     tokens.push_back({token_type::IDENTIFIER, tok});
 
                 tok.clear();
@@ -62,7 +62,7 @@ namespace Pastel
             else if (is_float(tok))
             {
                 i++;
-                while (i < current_line.size() && is_float(std::string(1, current_line[i])))
+                while (i < current_line.size() && current_line[i] != ' ')
                 {
                     tok += current_line[i];
                     i++;
@@ -73,7 +73,7 @@ namespace Pastel
                 if (is_int(tok))
                     tokens.push_back({token_type::INT, tok});
 
-                else
+                else if (is_float(tok))
                     tokens.push_back({token_type::FLOAT, tok});
 
                 tok.clear();

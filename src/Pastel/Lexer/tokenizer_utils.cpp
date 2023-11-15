@@ -38,7 +38,10 @@ namespace Pastel
 
         for (int i = 0; i < str.size(); i++)
         {
-            if (!isdigit(str[i]))
+            if (i > 0 && !isdigit(str[i]) && str[i] != '.')
+                Pastel::errors::lexical("expected an identifier before numeric constant", this->current_line, this->current_line_no);
+
+            else if (!isdigit(str[i]))
                 return false;
         }
 
@@ -62,6 +65,9 @@ namespace Pastel
                 continue;
             }
 
+            else if (i > 0 && !isdigit(str[i]) && str[i] != '.')
+                Pastel::errors::lexical("expected an identifier before numeric constant", this->current_line, this->current_line_no);
+
             else if (!isdigit(str[i]))
                 return false;
         }
@@ -78,11 +84,92 @@ namespace Pastel
 
     bool lexer::is_symbol(const std::string& c)
     {
-        return c == ":" || c == "." || c == "," || c == ";" || c == "@" || c == "$";
+        return c == ":" || c == "." || c == "," || c == ";" || c == "@";
     }
 
     bool lexer::is_paren(const std::string& c)
     {
         return c == "(" || c == ")" || c == "[" || c == "]" || c == "{" || c == "}";
+    }
+
+    token_type lexer::paren_token(const std::string& c)
+    {
+        if (c == "(")
+            return token_type::LPAREN;
+
+        else if (c == ")")
+            return token_type::RPAREN;
+
+        else if (c == "[")
+            return token_type::LBRACKET;
+
+        else if (c == "]")
+            return token_type::RBRACKET;
+        
+        else if (c == "{")
+            return token_type::LBRACE;
+
+        else if (c == "}")
+            return token_type::RBRACE;
+
+        return token_type::UNKNOWN;
+    }
+
+    token_type lexer::symbol_token(const std::string& c)
+    {
+        if (c == ":")
+            return token_type::COLON;
+
+        else if (c == ";")
+            return token_type::SEMICOLON;
+
+        else if (c == ".")
+            return token_type::DOT;
+
+        else if (c == ",")
+            return token_type::COMMA;
+
+        else if (c == "@")
+            return token_type::ATTHERATE;
+
+        return token_type::UNKNOWN;
+    }
+
+    token_type lexer::operator_token(const std::string& c)
+    {
+        if (c == "+")
+            return token_type::PLUS;
+
+        else if (c == "-")
+            return token_type::MINUS;
+
+        else if (c == "*")
+            return token_type::MUL;
+
+        else if (c == "/")
+            return token_type::DIV;
+
+        else if (c == "%")
+            return token_type::MOD;
+
+        else if (c == "=")
+            return token_type::EQUAL;
+
+        else if (c == ">")
+            return token_type::GREATERTHAN;
+
+        else if (c == "<")
+            return token_type::SMALLERTHAN;
+
+        else if (c == "!")
+            return token_type::NOT;
+
+        else if (c == "&")
+            return token_type::AND;
+
+        else if (c == "|")
+            return token_type::OR;
+
+        return token_type::UNKNOWN;
     }
 }

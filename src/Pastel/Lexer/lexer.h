@@ -25,5 +25,9 @@ namespace Pastel
         bool is_operator(const std::string& c);
         bool is_symbol(const std::string& c);
         bool is_paren(const std::string& c);
+
+        token_type paren_token(const std::string& c);
+        token_type symbol_token(const std::string& c);
+        token_type operator_token(const std::string& c);
     };
 }
