@@ -109,7 +109,7 @@ namespace Pastel
                 if (current_line[i] == '"')
                     tokens.push_back({token_type::STRING, tok});
 
-                if (current_line[i] == '\'')
+                else if (current_line[i] == '\'')
                     tokens.push_back({token_type::CHAR, tok});
 
                 tok.clear();

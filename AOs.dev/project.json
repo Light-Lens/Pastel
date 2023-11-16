@@ -3,7 +3,7 @@
   "project_path": "D:\\Dev Projects\\Pastel",
   "github_URL": "https://github.com/Light-Lens/Pastel.git",
   "github_branch": "master",
-  "build": 274,
+  "build": 275,
   "clean_project_waste": [
     "bin",
     "src\\pastelpch.h.gch"
