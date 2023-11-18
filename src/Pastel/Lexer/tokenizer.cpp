@@ -11,40 +11,40 @@ namespace Pastel
         std::vector<token> tokens;
         std::string tok;
 
-        for (int i = 0; i < current_line.size(); i++)
+        for (int i = 0; i < this->current_line.size(); i++)
         {
-            tok += current_line[i];
+            tok += this->current_line[i];
 
             if (utils::strings::is_empty(tok))
                 tok.clear();
 
-            else if (current_line[i] == '#' || (current_line[i] == '/' && current_line[i+1] == '/'))
+            else if (this->current_line[i] == '/' && current_line[i+1] == '/')
                 break;
 
-            else if (is_paren(tok))
+            else if (this->is_paren(tok))
             {
                 tokens.push_back({paren_token(tok), tok});
                 tok.clear();
             }
 
-            else if (is_symbol(tok))
+            else if (this->is_symbol(tok))
             {
-                tokens.push_back({symbol_token(tok), tok});
+                tokens.push_back({this->symbol_token(tok), tok});
                 tok.clear();
             }
 
-            else if (is_operator(tok))
+            else if (this->is_operator(tok))
             {
-                tokens.push_back({operator_token(tok), tok});
+                tokens.push_back({this->operator_token(tok), tok});
                 tok.clear();
             }
 
             else if (is_float(tok))
             {
                 i++;
-                while (i < current_line.size() && current_line[i] != ' ')
+                while (i < this->current_line.size() && this->current_line[i] != ' ')
                 {
-                    tok += current_line[i];
+                    tok += this->current_line[i];
                     i++;
                 }
 
@@ -59,21 +59,21 @@ namespace Pastel
                 tok.clear();
             }
 
-            else if (is_identifier(tok))
+            else if (this->is_identifier(tok))
             {
                 i++;
-                while (i < current_line.size() && is_identifier(std::string(1, current_line[i])) && current_line[i] != ' ')
+                while (i < this->current_line.size() && this->is_identifier(std::string(1, this->current_line[i])) && this->current_line[i] != ' ')
                 {
-                    tok += current_line[i];
+                    tok += this->current_line[i];
                     i++;
                 }
 
                 i--;
 
-                if (is_keyword(tok))
+                if (this->is_keyword(tok))
                     tokens.push_back({token_type::KEYWORD, tok});
 
-                else if (is_identifier(tok))
+                else if (this->is_identifier(tok))
                     tokens.push_back({token_type::IDENTIFIER, tok});
 
                 tok.clear();
@@ -84,16 +84,16 @@ namespace Pastel
                 char str_char_symbol = tok[0];
 
                 i++;
-                if (i < current_line.size())
+                if (i < this->current_line.size())
                 {
-                    while (i < current_line.size() && current_line[i] != str_char_symbol)
+                    while (i < this->current_line.size() && this->current_line[i] != str_char_symbol)
                     {
-                        tok += current_line[i];
+                        tok += this->current_line[i];
                         i++;
                     }
-                    tok += current_line[i];
+                    tok += this->current_line[i];
 
-                    if (i >= current_line.size())
+                    if (i >= this->current_line.size())
                     {
                         std::string error_detail = "missing terminating " + std::string(1, str_char_symbol) + " character";
                         errors::lexical(current_line, error_detail, current_line_no);
@@ -106,10 +106,10 @@ namespace Pastel
                     errors::lexical(current_line, error_detail, current_line_no);
                 }
 
-                if (current_line[i] == '"')
+                if (this->current_line[i] == '"')
                     tokens.push_back({token_type::STRING, tok});
 
-                else if (current_line[i] == '\'')
+                else if (this->current_line[i] == '\'')
                     tokens.push_back({token_type::CHAR, tok});
 
                 tok.clear();

@@ -23,6 +23,7 @@ namespace Pastel
         DOT,
         COMMA,
         ATTHERATE,
+        HASHTAG,
         PLUS,
         MINUS,
         MUL,

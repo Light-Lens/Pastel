@@ -84,7 +84,7 @@ namespace Pastel
 
     bool lexer::is_symbol(const std::string& c)
     {
-        return c == ":" || c == "." || c == "," || c == ";" || c == "@";
+        return c == ":" || c == "." || c == "," || c == ";" || c == "@" || c == "#";
     }
 
     bool lexer::is_paren(const std::string& c)
@@ -131,6 +131,9 @@ namespace Pastel
 
         else if (c == "@")
             return token_type::ATTHERATE;
+
+        else if (c == "#")
+            return token_type::HASHTAG;
 
         return token_type::UNKNOWN;
     }

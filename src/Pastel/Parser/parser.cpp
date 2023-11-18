@@ -6,49 +6,62 @@
 
 namespace Pastel
 {
-    // parser::parser(const std::vector< std::vector<token> >& tokenized_code, const std::vector<std::string>& original_lines)
-    // {
-    //     for (int i = 0; i < tokenized_code.size(); i++)
-    //     {
-    //         current_line = original_lines[i];
-    //         translator(tokenized_code[i]);
-    //         ++current_line_no;
-    //     }
+    parser::parser(const std::vector< std::vector<token> >& tokenized_code, const std::vector<std::string>& original_lines)
+    {
+        for (int i = 0; i < tokenized_code.size(); i++)
+        {
+            this->current_line = original_lines[i];
+            this->translator(tokenized_code[i]);
+            ++this->current_line_no;
+        }
 
-    //     for (int i = 0; i < translation.size(); i++)
-    //     {
-    //         for (int j = 0; j < translation[i].size(); j++)
-    //             std::cout << translation[i][j] << std::endl;
+        for (int i = 0; i < this->translation.size(); i++)
+        {
+            for (int j = 0; j < this->translation[i].size(); j++)
+                std::cout << this->translation[i][j] << std::endl;
 
-    //         std::cout << std::endl;
-    //     }
-    // }
+            std::cout << std::endl;
+        }
+    }
 
-    // // translate pastel code to c++ code
-    // void parser::translator(const std::vector<token>& tokens)
-    // {
-    //     const size_t num_tokens = tokens.size();
-    //     if (num_tokens == 0)
-    //         return;
+    // translate pastel code to c++ code
+    void parser::translator(const std::vector<token>& tokens)
+    {
+        const size_t num_tokens = tokens.size();
+        if (num_tokens == 0)
+            return;
 
-    //     for (int i = 0; i < num_tokens; i++)
-    //     {
-    //         const token_type type = tokens[i].type;
-    //         const std::string name = tokens[i].name;
+        for (int i = 0; i < num_tokens; i++)
+        {
+            const token_type type = tokens[i].type;
+            const std::string name = tokens[i].name;
 
-    //         if (type == COMMENT)
-    //         {
-    //             translation.push_back({name});
-    //             break;
-    //         }
+            if (type == KEYWORD)
+            {
+                std::cout << name << std::endl;
+                // if (contains_keywords(tokens, include_keywords))
+                //     handle_includes(tokens, i);
+            }
+        }
 
-    //         else if (type == KEYWORD)
-    //         {
-    //             if (contains_keywords(tokens, include_keywords))
-    //                 handle_includes(tokens, i);
-    //         }
-    //     }
-    // }
+        // for (int i = 0; i < num_tokens; i++)
+        // {
+        //     const token_type type = tokens[i].type;
+        //     const std::string name = tokens[i].name;
+
+        //     if (type == COMMENT)
+        //     {
+        //         translation.push_back({name});
+        //         break;
+        //     }
+
+        //     else if (type == KEYWORD)
+        //     {
+        //         if (contains_keywords(tokens, include_keywords))
+        //             handle_includes(tokens, i);
+        //     }
+        // }
+    }
 
     // /**
     // * Handles processing of '#include' directives in the token stream.

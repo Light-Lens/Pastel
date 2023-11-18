@@ -10,9 +10,9 @@ namespace Pastel
     {
         for (int i = 0; i < code.size(); i++)
         {
-            current_line = code[i];
-            current_line_no = i+1;
-            tokenized_code.push_back(tokenizer());
+            this->current_line = code[i];
+            this->current_line_no = i+1;
+            this->tokenized_code.push_back(tokenizer());
         }
     }
 }
