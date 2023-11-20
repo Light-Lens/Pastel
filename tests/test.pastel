@@ -1,50 +1,50 @@
 <SDL/SDL2>
 12.3
-#12.3.4
-#12.3.4q35
-#12.3q35
+// 12.3.4
+// 12.3.4q35
+// 12.3q35
 
-#// this is just a test comment
-#
-#//'"
-#//import 2
-#
-##include "StreetView.pastel"
-#include "iostream" // test include comment
-#include <spdlog/spdlog.h>
-#
-#//include <<spdlog/spdlog.h>
-#//include <spdlog/spdlog.h
-#
-#//import   <SDL/SDL2>>>>>
-#//import   <SDL/SDL2>asdf
-#import   <SDL/SDL2>
-##include <windows.h>
-#
-#std::cout << "Hello world!" << std::endl;
-#shout("Hello world!");
-#
-#
-#let num = 3
-#char a = 'a';
-#char a = '\n';
-#
-#shout(a);
-#shout(num, "Hello world!");
-#
-#fun test(int a, int b) //add 2 numbers
-#{
-#
-#    return a+b;
-#
-#}
-#
-#std::string test2(string a)
-#{
-#    return a;
-#}
-#
-#// this comment is another test.
-#
-#
-#std::cout << 1.0-21+3*28/0.3 << "\n";
+// this is just a test comment
+
+//'"
+//import 2
+
+#include "StreetView.pastel"
+include "iostream" // test include comment
+include <spdlog/spdlog.h>
+
+//include <<spdlog/spdlog.h>
+//include <spdlog/spdlog.h
+
+//import   <SDL/SDL2>>>>>
+//import   <SDL/SDL2>asdf
+import   <SDL/SDL2>
+#include <windows.h>
+
+std::cout << "Hello world!" << std::endl;
+shout("Hello world!");
+
+
+let num = 3
+char a = 'a';
+char a = '\n';
+
+shout(a);
+shout(num, "Hello world!");
+
+fun test(int a, int b) //add 2 numbers
+{
+
+    return a+b;
+
+}
+
+std::string test2(string a)
+{
+    return a;
+}
+
+// this comment is another test.
+
+
+std::cout << 1.0-21+3*28/0.3 << "\n";

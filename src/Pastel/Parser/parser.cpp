@@ -36,12 +36,14 @@ namespace Pastel
             const token_type type = tokens[i].type;
             const std::string name = tokens[i].name;
 
-            if (type == KEYWORD)
-            {
-                std::cout << name << std::endl;
-                // if (contains_keywords(tokens, include_keywords))
-                //     handle_includes(tokens, i);
-            }
+            std::cout << "NAME: " << name << ", TOKEN: " << type << std::endl;
+
+            // if (type == KEYWORD)
+            // {
+            //     std::cout << name << std::endl;
+            //     // if (contains_keywords(tokens, include_keywords))
+            //     //     handle_includes(tokens, i);
+            // }
         }
 
         // for (int i = 0; i < num_tokens; i++)

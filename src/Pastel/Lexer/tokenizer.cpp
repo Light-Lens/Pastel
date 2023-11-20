@@ -18,6 +18,7 @@ namespace Pastel
             if (utils::strings::is_empty(tok))
                 tok.clear();
 
+            // COMMENT
             else if (this->current_line[i] == '/' && current_line[i+1] == '/')
                 break;
 
@@ -42,7 +43,7 @@ namespace Pastel
             else if (is_float(tok))
             {
                 i++;
-                while (i < this->current_line.size() && this->current_line[i] != ' ')
+                while (i < this->current_line.size() && this->is_float(std::string(1, this->current_line[i])))
                 {
                     tok += this->current_line[i];
                     i++;
@@ -50,10 +51,10 @@ namespace Pastel
 
                 i--;
 
-                if (is_int(tok))
+                if (this->is_int(tok))
                     tokens.push_back({token_type::INT, tok});
 
-                else if (is_float(tok))
+                else if (this->is_float(tok))
                     tokens.push_back({token_type::FLOAT, tok});
 
                 tok.clear();
