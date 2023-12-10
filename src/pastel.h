@@ -50,5 +50,5 @@ std::vector<std::string> load_file(const std::string& filename)
 void run(const std::vector<std::string>& code)
 {
     Pastel::lexer lex(code);
-    Pastel::parser parse(lex.tokenized_code, code);
+    // Pastel::parser parse(lex.tokenized_code, code);
 }

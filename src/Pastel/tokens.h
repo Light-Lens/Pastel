@@ -4,7 +4,8 @@ namespace Pastel
 {
     enum token_type
     {
-        UNKNOWN = 0,
+        EOL = 0, // END OF LINE
+        UNKNOWN,
         COMMENT,
         STRING,
         INT,
@@ -34,7 +35,7 @@ namespace Pastel
         SMALLERTHAN,
         NOT,
         AND,
-        OR,
+        OR
     };
 
     struct token

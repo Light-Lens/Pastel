@@ -123,6 +123,8 @@ namespace Pastel
             }
         }
 
+        // END OF LINE
+        tokens.push_back({token_type::EOL, ""});
         return tokens;
     }
 }

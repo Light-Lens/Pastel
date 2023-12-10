@@ -12,7 +12,19 @@ namespace Pastel
         {
             this->current_line = code[i];
             this->current_line_no = i+1;
-            this->tokenized_code.push_back(tokenizer());
+
+            std::vector<token> toks = this->tokenizer();
+
+            this->tokenized_code.insert(this->tokenized_code.end(), toks.begin(), toks.end());
+        }
+
+        for (const auto& i : this->tokenized_code)
+        {
+            if (i.type == token_type::EOL)
+                std::cout << "END OF LINE\n";
+
+            else
+                std::cout << "NAME: " << i.name << ", TYPE: " << i.type << std::endl;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Pastel
     class lexer
     {
     public:
-        std::vector< std::vector<token> > tokenized_code;
+        std::vector<token> tokenized_code;
 
     private:
         std::string current_line;
